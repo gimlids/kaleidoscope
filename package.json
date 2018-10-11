@@ -6,7 +6,8 @@
   "jsnext:main": "dist/kaleidoscope.es.js",
   "scripts": {
     "test": "karma start --single-run",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "files": [
     "package.json",

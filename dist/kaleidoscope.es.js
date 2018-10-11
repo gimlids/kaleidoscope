@@ -19901,11 +19901,13 @@ let easeOutBack = k => {
 
 class Controls {
   constructor(options) {
+    this.startTime = new Date().getTime();
     Object.assign(this, options);
     this.el = this.renderer.el;
     this.theta = this.initialYaw * Math.PI / 180;
     this.phi = 0;
-    this.velo = utils.isiOS() ? 0.02 : 1.6;
+    // this.velo = utils.isiOS() ? 0.02 : 1.6;
+    this.velo = 0.02;
     this.rotateStart = new THREE.Vector2();
     this.rotateEnd = new THREE.Vector2();
     this.rotateDelta = new THREE.Vector2();
@@ -20016,6 +20018,9 @@ class Controls {
     } else {
       orientation = -90;
     }
+    if (new Date().getTime() < this.startTime + 20 * 1000) {
+      console.log(event);
+    }
     let alpha = THREE.Math.degToRad(event.rotationRate.alpha);
     let beta = THREE.Math.degToRad(event.rotationRate.beta);
     if (Math.abs(alpha) > 0 || Math.abs(beta) > 0) {
@@ -20032,6 +20037,7 @@ class Controls {
     }
 
     this.adjustPhi();
+    this.lastTimestamp = event.timeStamp;
   }
 
   onGrabMove(event) {
