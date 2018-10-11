@@ -417,8 +417,6 @@ var index = createCommonjsModule(function (module) {
 		},
 
 		random16: function () {
-
-			console.warn('THREE.Math.random16() has been deprecated. Use Math.random() instead.');
 			return Math.random();
 		},
 
@@ -594,11 +592,6 @@ var index = createCommonjsModule(function (module) {
 			function handleAlpha(string) {
 
 				if (string === undefined) return;
-
-				if (parseFloat(string) < 1) {
-
-					console.warn('THREE.Color: Alpha component of ' + style + ' will be ignored.');
-				}
 			}
 
 			var m;
@@ -695,10 +688,6 @@ var index = createCommonjsModule(function (module) {
 
 					// red
 					this.setHex(hex);
-				} else {
-
-					// unknown color
-					console.warn('THREE.Color: Unknown color ' + style);
 				}
 			}
 
@@ -1062,8 +1051,6 @@ var index = createCommonjsModule(function (module) {
 		add: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector2: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -1100,8 +1087,6 @@ var index = createCommonjsModule(function (module) {
 		sub: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector2: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -1489,8 +1474,6 @@ var index = createCommonjsModule(function (module) {
 		add: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector3: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -1531,8 +1514,6 @@ var index = createCommonjsModule(function (module) {
 		sub: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector3: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -1564,8 +1545,6 @@ var index = createCommonjsModule(function (module) {
 		multiply: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector3: .multiply() now only accepts one argument. Use .multiplyVectors( a, b ) instead.');
 				return this.multiplyVectors(v, w);
 			}
 
@@ -1607,11 +1586,6 @@ var index = createCommonjsModule(function (module) {
 			var quaternion;
 
 			return function applyEuler(euler) {
-
-				if (euler instanceof THREE.Euler === false) {
-
-					console.error('THREE.Vector3: .applyEuler() now expects an Euler rotation rather than a Vector3 and order.');
-				}
 
 				if (quaternion === undefined) quaternion = new THREE.Quaternion();
 
@@ -1923,8 +1897,6 @@ var index = createCommonjsModule(function (module) {
 		cross: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector3: .cross() now only accepts one argument. Use .crossVectors( a, b ) instead.');
 				return this.crossVectors(v, w);
 			}
 
@@ -2055,8 +2027,6 @@ var index = createCommonjsModule(function (module) {
 		setFromMatrixColumn: function (m, index) {
 
 			if (typeof m === 'number') {
-
-				console.warn('THREE.Vector3: setFromMatrixColumn now expects ( matrix, index ).');
 
 				m = arguments[1];
 				index = arguments[0];
@@ -2232,8 +2202,6 @@ var index = createCommonjsModule(function (module) {
 		add: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector4: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -2278,8 +2246,6 @@ var index = createCommonjsModule(function (module) {
 		sub: function (v, w) {
 
 			if (w !== undefined) {
-
-				console.warn('THREE.Vector4: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -2705,11 +2671,6 @@ var index = createCommonjsModule(function (module) {
 	THREE.Matrix3 = function () {
 
 		this.elements = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-
-		if (arguments.length > 0) {
-
-			console.error('THREE.Matrix3: the constructor no longer reads arguments. use .set() instead.');
-		}
 	};
 
 	THREE.Matrix3.prototype = {
@@ -2833,11 +2794,6 @@ var index = createCommonjsModule(function (module) {
 
 		getInverse: function (matrix, throwOnDegenerate) {
 
-			if (matrix instanceof THREE.Matrix4) {
-
-				console.warn("THREE.Matrix3.getInverse no longer takes a Matrix4 argument.");
-			}
-
 			var me = matrix.elements,
 			    te = this.elements,
 			    n11 = me[0],
@@ -2861,9 +2817,6 @@ var index = createCommonjsModule(function (module) {
 				if (throwOnDegenerate || false) {
 
 					throw new Error(msg);
-				} else {
-
-					console.warn(msg);
 				}
 
 				return this.identity();
@@ -2971,11 +2924,6 @@ var index = createCommonjsModule(function (module) {
 	THREE.Matrix4 = function () {
 
 		this.elements = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
-
-		if (arguments.length > 0) {
-
-			console.error('THREE.Matrix4: the constructor no longer reads arguments. use .set() instead.');
-		}
 	};
 
 	THREE.Matrix4.prototype = {
@@ -3073,11 +3021,6 @@ var index = createCommonjsModule(function (module) {
 		}(),
 
 		makeRotationFromEuler: function (euler) {
-
-			if (euler instanceof THREE.Euler === false) {
-
-				console.error('THREE.Matrix: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.');
-			}
 
 			var te = this.elements;
 
@@ -3302,8 +3245,6 @@ var index = createCommonjsModule(function (module) {
 		multiply: function (m, n) {
 
 			if (n !== undefined) {
-
-				console.warn('THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.');
 				return this.multiplyMatrices(m, n);
 			}
 
@@ -3522,7 +3463,6 @@ var index = createCommonjsModule(function (module) {
 			return function () {
 
 				if (v1 === undefined) v1 = new THREE.Vector3();
-				console.warn('THREE.Matrix4: .getPosition() has been removed. Use Vector3.setFromMatrixPosition( matrix ) instead.');
 
 				return v1.setFromMatrixColumn(this, 3);
 			};
@@ -3574,9 +3514,6 @@ var index = createCommonjsModule(function (module) {
 				if (throwOnDegenerate || false) {
 
 					throw new Error(msg);
-				} else {
-
-					console.warn(msg);
 				}
 
 				return this.identity();
@@ -4382,8 +4319,6 @@ var index = createCommonjsModule(function (module) {
 		multiply: function (q, p) {
 
 			if (p !== undefined) {
-
-				console.warn('THREE.Quaternion: .multiply() now only accepts one argument. Use .multiplyQuaternions( a, b ) instead.');
 				return this.multiplyQuaternions(q, p);
 			}
 
@@ -5323,9 +5258,6 @@ var index = createCommonjsModule(function (module) {
 					this._x = Math.atan2(-m23, m33);
 					this._y = 0;
 				}
-			} else {
-
-				console.warn('THREE.Euler: .setFromRotationMatrix() given unsupported order: ' + order);
 			}
 
 			this._order = order;
@@ -6618,8 +6550,6 @@ var index = createCommonjsModule(function (module) {
 			}
 
 			if (object === this) {
-
-				console.error("THREE.Object3D.add: object can't be added as a child of itself.", object);
 				return this;
 			}
 
@@ -6634,9 +6564,6 @@ var index = createCommonjsModule(function (module) {
 				object.dispatchEvent({ type: 'added' });
 
 				this.children.push(object);
-			} else {
-
-				console.error("THREE.Object3D.add: object not an instance of THREE.Object3D.", object);
 			}
 
 			return this;
@@ -7135,8 +7062,6 @@ var index = createCommonjsModule(function (module) {
 				var color = colors[i];
 
 				if (color === undefined) {
-
-					console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', i);
 					color = new THREE.Color();
 				}
 
@@ -7175,8 +7100,6 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
-
-					console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i);
 					vector = new THREE.Vector2();
 				}
 
@@ -7197,8 +7120,6 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
-
-					console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i);
 					vector = new THREE.Vector3();
 				}
 
@@ -7220,8 +7141,6 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
-
-					console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', i);
 					vector = new THREE.Vector4();
 				}
 
@@ -7381,8 +7300,6 @@ var index = createCommonjsModule(function (module) {
 	// Deprecated
 
 	THREE.DynamicBufferAttribute = function (array, itemSize) {
-
-		console.warn('THREE.DynamicBufferAttribute has been removed. Use new THREE.BufferAttribute().setDynamic( true ) instead.');
 		return new THREE.BufferAttribute(array, itemSize).setDynamic(true);
 	};
 
@@ -7458,16 +7375,12 @@ var index = createCommonjsModule(function (module) {
 
 			if (attribute instanceof THREE.BufferAttribute === false && attribute instanceof THREE.InterleavedBufferAttribute === false) {
 
-				console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).');
-
 				this.addAttribute(name, new THREE.BufferAttribute(arguments[1], arguments[2]));
 
 				return;
 			}
 
 			if (name === 'index') {
-
-				console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.');
 				this.setIndex(attribute);
 
 				return;
@@ -7926,10 +7839,7 @@ var index = createCommonjsModule(function (module) {
 					this.boundingBox.max.set(0, 0, 0);
 				}
 
-				if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) {
-
-					console.error('THREE.BufferGeometry.computeBoundingBox: Computed min/max have NaN values. The "position" attribute is likely to have NaN values.', this);
-				}
+				if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) ;
 			};
 		}(),
 
@@ -7967,10 +7877,7 @@ var index = createCommonjsModule(function (module) {
 
 					this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
 
-					if (isNaN(this.boundingSphere.radius)) {
-
-						console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this);
-					}
+					if (isNaN(this.boundingSphere.radius)) ;
 				}
 			};
 		}(),
@@ -8099,8 +8006,6 @@ var index = createCommonjsModule(function (module) {
 		merge: function (geometry, offset) {
 
 			if (geometry instanceof THREE.BufferGeometry === false) {
-
-				console.error('THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry);
 				return;
 			}
 
@@ -8152,8 +8057,6 @@ var index = createCommonjsModule(function (module) {
 		toNonIndexed: function () {
 
 			if (this.index === null) {
-
-				console.warn('THREE.BufferGeometry.toNonIndexed(): Geometry is already non-indexed.');
 				return this;
 			}
 
@@ -8346,8 +8249,6 @@ var index = createCommonjsModule(function (module) {
 		constructor: THREE.InterleavedBufferAttribute,
 
 		get length() {
-
-			console.warn('THREE.BufferAttribute: .length has been deprecated. Please use .count.');
 			return this.array.length;
 		},
 
@@ -9039,10 +8940,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		computeTangents: function () {
-
-			console.warn('THREE.Geometry: .computeTangents() has been removed.');
-		},
+		computeTangents: function () {},
 
 		computeLineDistances: function () {
 
@@ -9083,8 +8981,6 @@ var index = createCommonjsModule(function (module) {
 		merge: function (geometry, matrix, materialIndexOffset) {
 
 			if (geometry instanceof THREE.Geometry === false) {
-
-				console.error('THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry);
 				return;
 			}
 
@@ -9185,8 +9081,6 @@ var index = createCommonjsModule(function (module) {
 		mergeMesh: function (mesh) {
 
 			if (mesh instanceof THREE.Mesh === false) {
-
-				console.error('THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh);
 				return;
 			}
 
@@ -9610,15 +9504,9 @@ var index = createCommonjsModule(function (module) {
 		computeBoundingBox: THREE.Geometry.prototype.computeBoundingBox,
 		computeBoundingSphere: THREE.Geometry.prototype.computeBoundingSphere,
 
-		computeFaceNormals: function () {
+		computeFaceNormals: function () {},
 
-			console.warn('THREE.DirectGeometry: computeFaceNormals() is not a method of this type of geometry.');
-		},
-
-		computeVertexNormals: function () {
-
-			console.warn('THREE.DirectGeometry: computeVertexNormals() is not a method of this type of geometry.');
-		},
+		computeVertexNormals: function () {},
 
 		computeGroups: function (geometry) {
 
@@ -9754,8 +9642,6 @@ var index = createCommonjsModule(function (module) {
 						this.uvs.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 					} else {
 
-						console.warn('THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i);
-
 						this.uvs.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 					}
 				}
@@ -9768,8 +9654,6 @@ var index = createCommonjsModule(function (module) {
 
 						this.uvs2.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 					} else {
-
-						console.warn('THREE.DirectGeometry.fromGeometry(): Undefined vertexUv2 ', i);
 
 						this.uvs2.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 					}
@@ -10355,16 +10239,12 @@ var index = createCommonjsModule(function (module) {
 				var newValue = values[key];
 
 				if (newValue === undefined) {
-
-					console.warn("THREE.Material: '" + key + "' parameter is undefined.");
 					continue;
 				}
 
 				var currentValue = this[key];
 
 				if (currentValue === undefined) {
-
-					console.warn("THREE." + this.type + ": '" + key + "' is not a property of this material.");
 					continue;
 				}
 
@@ -10915,10 +10795,7 @@ var index = createCommonjsModule(function (module) {
 
 		if (parameters !== undefined) {
 
-			if (parameters.attributes !== undefined) {
-
-				console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.');
-			}
+			if (parameters.attributes !== undefined) ;
 
 			this.setValues(parameters);
 		}
@@ -12219,8 +12096,6 @@ var index = createCommonjsModule(function (module) {
 	THREE.Line = function (geometry, material, mode) {
 
 		if (mode === 1) {
-
-			console.warn('THREE.Line: parameter THREE.LinePieces no longer supported. Created THREE.LineSegments instead.');
 			return new THREE.LineSegments(geometry, material);
 		}
 
@@ -12454,8 +12329,6 @@ var index = createCommonjsModule(function (module) {
 
 			return this.morphTargetDictionary[name];
 		}
-
-		console.warn('THREE.Mesh.getMorphTargetIndexByName: morph target ' + name + ' does not exist. Returning 0.');
 
 		return 0;
 	};
@@ -12853,9 +12726,6 @@ var index = createCommonjsModule(function (module) {
 		} else if (this.bindMode === "detached") {
 
 			this.bindMatrixInverse.getInverse(this.bindMatrix);
-		} else {
-
-			console.warn('THREE.SkinnedMesh unrecognized bindMode: ' + this.bindMode);
 		}
 	};
 
@@ -13636,8 +13506,6 @@ var index = createCommonjsModule(function (module) {
 
 	THREE.WebGLRenderer = function (parameters) {
 
-		console.log('THREE.WebGLRenderer', THREE.REVISION);
-
 		parameters = parameters || {};
 
 		var _canvas = parameters.canvas !== undefined ? parameters.canvas : document.createElement('canvas'),
@@ -13836,10 +13704,7 @@ var index = createCommonjsModule(function (module) {
 			}
 
 			_canvas.addEventListener('webglcontextlost', onContextLost, false);
-		} catch (error) {
-
-			console.error('THREE.WebGLRenderer: ' + error);
-		}
+		} catch (error) {}
 
 		var extensions = new THREE.WebGLExtensions(_gl);
 
@@ -14478,8 +14343,6 @@ var index = createCommonjsModule(function (module) {
 				extension = extensions.get('ANGLE_instanced_arrays');
 
 				if (extension === null) {
-
-					console.error('THREE.WebGLRenderer.setupVertexAttributes: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 					return;
 				}
 			}
@@ -14621,8 +14484,6 @@ var index = createCommonjsModule(function (module) {
 		this.render = function (scene, camera, renderTarget, forceClear) {
 
 			if (camera instanceof THREE.Camera === false) {
-
-				console.error('THREE.WebGLRenderer.render: camera is not an instance of THREE.Camera.');
 				return;
 			}
 
@@ -15556,11 +15417,6 @@ var index = createCommonjsModule(function (module) {
 
 			var textureUnit = _usedTextureUnits;
 
-			if (textureUnit >= capabilities.maxTextures) {
-
-				console.warn('WebGLRenderer: trying to use ' + textureUnit + ' texture units while this GPU supports only ' + capabilities.maxTextures);
-			}
-
 			_usedTextureUnits += 1;
 
 			return textureUnit;
@@ -15843,9 +15699,6 @@ var index = createCommonjsModule(function (module) {
 						_this.setTexture(texture, textureUnit);
 					}
 				}
-			} else {
-
-				console.warn('THREE.WebGLRenderer: Unknown uniform type: ' + type);
 			}
 		}
 
@@ -16070,18 +15923,12 @@ var index = createCommonjsModule(function (module) {
 				_gl.texParameteri(textureType, _gl.TEXTURE_WRAP_S, _gl.CLAMP_TO_EDGE);
 				_gl.texParameteri(textureType, _gl.TEXTURE_WRAP_T, _gl.CLAMP_TO_EDGE);
 
-				if (texture.wrapS !== THREE.ClampToEdgeWrapping || texture.wrapT !== THREE.ClampToEdgeWrapping) {
-
-					console.warn('THREE.WebGLRenderer: Texture is not power of two. Texture.wrapS and Texture.wrapT should be set to THREE.ClampToEdgeWrapping.', texture);
-				}
+				if (texture.wrapS !== THREE.ClampToEdgeWrapping || texture.wrapT !== THREE.ClampToEdgeWrapping) ;
 
 				_gl.texParameteri(textureType, _gl.TEXTURE_MAG_FILTER, filterFallback(texture.magFilter));
 				_gl.texParameteri(textureType, _gl.TEXTURE_MIN_FILTER, filterFallback(texture.minFilter));
 
-				if (texture.minFilter !== THREE.NearestFilter && texture.minFilter !== THREE.LinearFilter) {
-
-					console.warn('THREE.WebGLRenderer: Texture is not power of two. Texture.minFilter should be set to THREE.NearestFilter or THREE.LinearFilter.', texture);
-				}
+				if (texture.minFilter !== THREE.NearestFilter && texture.minFilter !== THREE.LinearFilter) ;
 			}
 
 			extension = extensions.get('EXT_texture_filter_anisotropic');
@@ -16165,9 +16012,6 @@ var index = createCommonjsModule(function (module) {
 						if (state.getCompressedTextureFormats().indexOf(glFormat) > -1) {
 
 							state.compressedTexImage2D(_gl.TEXTURE_2D, i, glFormat, mipmap.width, mipmap.height, 0, mipmap.data);
-						} else {
-
-							console.warn("THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .uploadTexture()");
 						}
 					} else {
 
@@ -16213,14 +16057,10 @@ var index = createCommonjsModule(function (module) {
 				var image = texture.image;
 
 				if (image === undefined) {
-
-					console.warn('THREE.WebGLRenderer: Texture marked for update but image is undefined', texture);
 					return;
 				}
 
 				if (image.complete === false) {
-
-					console.warn('THREE.WebGLRenderer: Texture marked for update but image is incomplete', texture);
 					return;
 				}
 
@@ -16248,8 +16088,6 @@ var index = createCommonjsModule(function (module) {
 
 				var context = canvas.getContext('2d');
 				context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
-
-				console.warn('THREE.WebGLRenderer: image is too big (' + image.width + 'x' + image.height + '). Resized to ' + canvas.width + 'x' + canvas.height, image);
 
 				return canvas;
 			}
@@ -16280,8 +16118,6 @@ var index = createCommonjsModule(function (module) {
 
 				var context = canvas.getContext('2d');
 				context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-				console.warn('THREE.WebGLRenderer: image is not power of two (' + image.width + 'x' + image.height + '). Resized to ' + canvas.width + 'x' + canvas.height, image);
 
 				return canvas;
 			}
@@ -16359,9 +16195,6 @@ var index = createCommonjsModule(function (module) {
 									if (state.getCompressedTextureFormats().indexOf(glFormat) > -1) {
 
 										state.compressedTexImage2D(_gl.TEXTURE_CUBE_MAP_POSITIVE_X + i, j, glFormat, mipmap.width, mipmap.height, 0, mipmap.data);
-									} else {
-
-										console.warn("THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .setCubeTexture()");
 									}
 								} else {
 
@@ -16581,8 +16414,6 @@ var index = createCommonjsModule(function (module) {
 		this.readRenderTargetPixels = function (renderTarget, x, y, width, height, buffer) {
 
 			if (renderTarget instanceof THREE.WebGLRenderTarget === false) {
-
-				console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.');
 				return;
 			}
 
@@ -16604,23 +16435,16 @@ var index = createCommonjsModule(function (module) {
 					var texture = renderTarget.texture;
 
 					if (texture.format !== THREE.RGBAFormat && paramThreeToGL(texture.format) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_FORMAT)) {
-
-						console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in RGBA or implementation defined format.');
 						return;
 					}
 
 					if (texture.type !== THREE.UnsignedByteType && paramThreeToGL(texture.type) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_TYPE) && !(texture.type === THREE.FloatType && extensions.get('WEBGL_color_buffer_float')) && !(texture.type === THREE.HalfFloatType && extensions.get('EXT_color_buffer_half_float'))) {
-
-						console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.');
 						return;
 					}
 
 					if (_gl.checkFramebufferStatus(_gl.FRAMEBUFFER) === _gl.FRAMEBUFFER_COMPLETE) {
 
 						_gl.readPixels(x, y, width, height, paramThreeToGL(texture.format), paramThreeToGL(texture.type), buffer);
-					} else {
-
-						console.error('THREE.WebGLRenderer.readRenderTargetPixels: readPixels from renderTarget failed. Framebuffer not complete.');
 					}
 				} finally {
 
@@ -16795,11 +16619,6 @@ var index = createCommonjsModule(function (module) {
 
 			}
 
-			if (extension === null) {
-
-				console.warn('THREE.WebGLRenderer: ' + name + ' extension not supported.');
-			}
-
 			extensions[name] = extension;
 
 			return extension;
@@ -16854,8 +16673,6 @@ var index = createCommonjsModule(function (module) {
 		var _maxPrecision = getMaxPrecision(this.precision);
 
 		if (_maxPrecision !== this.precision) {
-
-			console.warn('THREE.WebGLRenderer:', this.precision, 'not supported, using', _maxPrecision, 'instead.');
 			this.precision = _maxPrecision;
 		}
 
@@ -17502,10 +17319,7 @@ var index = createCommonjsModule(function (module) {
 			try {
 
 				gl.compressedTexImage2D.apply(gl, arguments);
-			} catch (error) {
-
-				console.error(error);
-			}
+			} catch (error) {}
 		};
 
 		this.texImage2D = function () {
@@ -17513,10 +17327,7 @@ var index = createCommonjsModule(function (module) {
 			try {
 
 				gl.texImage2D.apply(gl, arguments);
-			} catch (error) {
-
-				console.error(error);
-			}
+			} catch (error) {}
 		};
 
 		// clear values
@@ -17756,8 +17567,6 @@ var index = createCommonjsModule(function (module) {
 			var extension = extensions.get('ANGLE_instanced_arrays');
 
 			if (extension === null) {
-
-				console.error('THREE.WebGLBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 				return;
 			}
 
@@ -17831,8 +17640,6 @@ var index = createCommonjsModule(function (module) {
 			var extension = extensions.get('ANGLE_instanced_arrays');
 
 			if (extension === null) {
-
-				console.error('THREE.WebGLBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 				return;
 			}
 
@@ -17853,18 +17660,6 @@ var index = createCommonjsModule(function (module) {
 
 	THREE.WebGLShader = function () {
 
-		function addLineNumbers(string) {
-
-			var lines = string.split('\n');
-
-			for (var i = 0; i < lines.length; i++) {
-
-				lines[i] = i + 1 + ': ' + lines[i];
-			}
-
-			return lines.join('\n');
-		}
-
 		return function WebGLShader(gl, type, string) {
 
 			var shader = gl.createShader(type);
@@ -17872,15 +17667,9 @@ var index = createCommonjsModule(function (module) {
 			gl.shaderSource(shader, string);
 			gl.compileShader(shader);
 
-			if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {
+			if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) ;
 
-				console.error('THREE.WebGLShader: Shader couldn\'t compile.');
-			}
-
-			if (gl.getShaderInfoLog(shader) !== '') {
-
-				console.warn('THREE.WebGLShader: gl.getShaderInfoLog()', type === gl.VERTEX_SHADER ? 'vertex' : 'fragment', gl.getShaderInfoLog(shader), addLineNumbers(string));
-			}
+			if (gl.getShaderInfoLog(shader) !== '') ;
 
 			// --enable-privileged-webgl-extension
 			// console.log( type, gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
@@ -18884,10 +18673,7 @@ var index = createCommonjsModule(function (module) {
 				// Not using update ranges
 
 				gl.bufferSubData(bufferType, 0, data.array);
-			} else if (data.updateRange.count === 0) {
-
-				console.error('THREE.WebGLObjects.updateBuffer: dynamic THREE.BufferAttribute marked as needsUpdate but updateRange.count is 0, ensure you are using set methods or updating manually.');
-			} else {
+			} else if (data.updateRange.count === 0) ; else {
 
 				gl.bufferSubData(bufferType, data.updateRange.offset * data.array.BYTES_PER_ELEMENT, data.array.subarray(data.updateRange.offset, data.updateRange.offset + data.updateRange.count));
 
@@ -19394,12 +19180,7 @@ var index = createCommonjsModule(function (module) {
 			if (gl.getProgramParameter(program, gl.LINK_STATUS) === false) {
 
 				runnable = false;
-
-				console.error('THREE.WebGLProgram: shader error: ', gl.getError(), 'gl.VALIDATE_STATUS', gl.getProgramParameter(program, gl.VALIDATE_STATUS), 'gl.getProgramInfoLog', programLog, vertexLog, fragmentLog);
-			} else if (programLog !== '') {
-
-				console.warn('THREE.WebGLProgram: gl.getProgramInfoLog()', programLog);
-			} else if (vertexLog === '' || fragmentLog === '') {
+			} else if (programLog !== '') ; else if (vertexLog === '' || fragmentLog === '') {
 
 				haveDiagnostics = false;
 			}
@@ -19477,16 +19258,12 @@ var index = createCommonjsModule(function (module) {
 
 				uniforms: {
 					get: function () {
-
-						console.warn('THREE.WebGLProgram: .uniforms is now .getUniforms().');
 						return this.getUniforms();
 					}
 				},
 
 				attributes: {
 					get: function () {
-
-						console.warn('THREE.WebGLProgram: .attributes is now .getAttributes().');
 						return this.getAttributes();
 					}
 				}
@@ -19648,10 +19425,7 @@ var index = createCommonjsModule(function (module) {
 
 					maxBones = Math.min(object.skeleton.bones.length, maxBones);
 
-					if (maxBones < object.skeleton.bones.length) {
-
-						console.warn('WebGLRenderer: too many bones - ' + object.skeleton.bones.length + ', this GPU supports just ' + maxBones + ' (try OpenGL instead of ANGLE)');
-					}
+					if (maxBones < object.skeleton.bones.length) ;
 				}
 
 				return maxBones;
@@ -19696,10 +19470,7 @@ var index = createCommonjsModule(function (module) {
 
 				precision = capabilities.getMaxPrecision(material.precision);
 
-				if (precision !== material.precision) {
-
-					console.warn('THREE.WebGLProgram.getParameters:', material.precision, 'not supported, using', precision, 'instead.');
-				}
+				if (precision !== material.precision) ;
 			}
 
 			var parameters = {
@@ -19901,12 +19672,10 @@ let easeOutBack = k => {
 
 class Controls {
   constructor(options) {
-    this.startTime = new Date().getTime();
     Object.assign(this, options);
     this.el = this.renderer.el;
     this.theta = this.initialYaw * Math.PI / 180;
     this.phi = 0;
-    // this.velo = utils.isiOS() ? 0.02 : 1.6;
     this.velo = 0.02;
     this.rotateStart = new THREE.Vector2();
     this.rotateEnd = new THREE.Vector2();
@@ -20018,9 +19787,6 @@ class Controls {
     } else {
       orientation = -90;
     }
-    if (new Date().getTime() < this.startTime + 20 * 1000) {
-      console.log(event);
-    }
     let alpha = THREE.Math.degToRad(event.rotationRate.alpha);
     let beta = THREE.Math.degToRad(event.rotationRate.beta);
     if (Math.abs(alpha) > 0 || Math.abs(beta) > 0) {
@@ -20037,7 +19803,6 @@ class Controls {
     }
 
     this.adjustPhi();
-    this.lastTimestamp = event.timeStamp;
   }
 
   onGrabMove(event) {
@@ -20206,9 +19971,7 @@ class ThreeSixtyViewer {
     return scene;
   }
 
-  onError(err) {
-    console.error('error loading', this.source, err);
-  }
+  onError(err) {}
 
   startVideoLoop() {
     let videoFps = 1000 / 25;
@@ -20275,7 +20038,6 @@ class Video extends ThreeSixtyViewer {
 class Image extends ThreeSixtyViewer {
   constructor(options) {
     super(options);
-    console.log('hello from david via kaleidoscopejs');
   }
 
   getElement() {
