@@ -3,6 +3,7 @@ import ThreeSixtyViewer from './three-sixty-viewer';
 export default class Image extends ThreeSixtyViewer {
   constructor(options) {
     super(options);
+    console.log('hello from david via kaleidoscopejs');
   }
 
   getElement() {

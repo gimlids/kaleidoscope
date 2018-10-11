@@ -5,6 +5,8 @@ import Image from './image'
 import Canvas from './canvas'
 import Audio from './audio'
 
+
+
 let video = (options) => {
   if (utils.shouldUseAudioDriver()) {
     return new Audio(options);

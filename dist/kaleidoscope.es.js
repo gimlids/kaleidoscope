@@ -1,14 +1,14 @@
 var utils = {
-  isiOS: function isiOS() {
+  isiOS() {
     return (/(ipad|iphone|ipod)/ig.test(navigator.userAgent)
     );
   },
-  shouldUseAudioDriver: function shouldUseAudioDriver() {
-    var isOldiOSOnIphone = /iphone.*(7|8|9)_[0-9]/i.test(navigator.userAgent);
-    var isWebView = /(iPhone|iPod).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
+  shouldUseAudioDriver() {
+    let isOldiOSOnIphone = /iphone.*(7|8|9)_[0-9]/i.test(navigator.userAgent);
+    let isWebView = /(iPhone|iPod).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
     return isOldiOSOnIphone || isWebView;
   },
-  shouldUseCanvasInBetween: function shouldUseCanvasInBetween() {
+  shouldUseCanvasInBetween() {
     return (/trident|edge/i.test(navigator.userAgent)
     );
   }
@@ -60,7 +60,7 @@ var index = createCommonjsModule(function (module) {
 
 		Object.defineProperty(Function.prototype, 'name', {
 
-			get: function get() {
+			get: function () {
 
 				return this.toString().match(/^\s*function\s*(\S*)\s*\(/)[1];
 			}
@@ -77,9 +77,7 @@ var index = createCommonjsModule(function (module) {
 			writable: true,
 			configurable: true,
 
-			value: function value(target) {
-
-				'use strict';
+			value: function (target) {
 
 				if (target === undefined || target === null) {
 
@@ -376,7 +374,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clamp: function clamp(value, min, max) {
+		clamp: function (value, min, max) {
 
 			return Math.max(min, Math.min(max, value));
 		},
@@ -384,21 +382,21 @@ var index = createCommonjsModule(function (module) {
 		// compute euclidian modulo of m % n
 		// https://en.wikipedia.org/wiki/Modulo_operation
 
-		euclideanModulo: function euclideanModulo(n, m) {
+		euclideanModulo: function (n, m) {
 
 			return (n % m + m) % m;
 		},
 
 		// Linear mapping from range <a1, a2> to range <b1, b2>
 
-		mapLinear: function mapLinear(x, a1, a2, b1, b2) {
+		mapLinear: function (x, a1, a2, b1, b2) {
 
 			return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
 		},
 
 		// http://en.wikipedia.org/wiki/Smoothstep
 
-		smoothstep: function smoothstep(x, min, max) {
+		smoothstep: function (x, min, max) {
 
 			if (x <= min) return 0;
 			if (x >= max) return 1;
@@ -408,7 +406,7 @@ var index = createCommonjsModule(function (module) {
 			return x * x * (3 - 2 * x);
 		},
 
-		smootherstep: function smootherstep(x, min, max) {
+		smootherstep: function (x, min, max) {
 
 			if (x <= min) return 0;
 			if (x >= max) return 1;
@@ -418,27 +416,29 @@ var index = createCommonjsModule(function (module) {
 			return x * x * x * (x * (x * 6 - 15) + 10);
 		},
 
-		random16: function random16() {
+		random16: function () {
+
+			console.warn('THREE.Math.random16() has been deprecated. Use Math.random() instead.');
 			return Math.random();
 		},
 
 		// Random integer from <low, high> interval
 
-		randInt: function randInt(low, high) {
+		randInt: function (low, high) {
 
 			return low + Math.floor(Math.random() * (high - low + 1));
 		},
 
 		// Random float from <low, high> interval
 
-		randFloat: function randFloat(low, high) {
+		randFloat: function (low, high) {
 
 			return low + Math.random() * (high - low);
 		},
 
 		// Random float from <-range/2, range/2> interval
 
-		randFloatSpread: function randFloatSpread(range) {
+		randFloatSpread: function (range) {
 
 			return range * (0.5 - Math.random());
 		},
@@ -463,17 +463,17 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		isPowerOfTwo: function isPowerOfTwo(value) {
+		isPowerOfTwo: function (value) {
 
 			return (value & value - 1) === 0 && value !== 0;
 		},
 
-		nearestPowerOfTwo: function nearestPowerOfTwo(value) {
+		nearestPowerOfTwo: function (value) {
 
 			return Math.pow(2, Math.round(Math.log(value) / Math.LN2));
 		},
 
-		nextPowerOfTwo: function nextPowerOfTwo(value) {
+		nextPowerOfTwo: function (value) {
 
 			value--;
 			value |= value >> 1;
@@ -510,7 +510,7 @@ var index = createCommonjsModule(function (module) {
 
 		r: 1, g: 1, b: 1,
 
-		set: function set(value) {
+		set: function (value) {
 
 			if (value instanceof THREE.Color) {
 
@@ -526,14 +526,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setScalar: function setScalar(scalar) {
+		setScalar: function (scalar) {
 
 			this.r = scalar;
 			this.g = scalar;
 			this.b = scalar;
 		},
 
-		setHex: function setHex(hex) {
+		setHex: function (hex) {
 
 			hex = Math.floor(hex);
 
@@ -544,7 +544,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setRGB: function setRGB(r, g, b) {
+		setRGB: function (r, g, b) {
 
 			this.r = r;
 			this.g = g;
@@ -589,13 +589,16 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		setStyle: function setStyle(style) {
+		setStyle: function (style) {
 
 			function handleAlpha(string) {
 
 				if (string === undefined) return;
 
-				if (parseFloat(string) < 1) {}
+				if (parseFloat(string) < 1) {
+
+					console.warn('THREE.Color: Alpha component of ' + style + ' will be ignored.');
+				}
 			}
 
 			var m;
@@ -695,19 +698,19 @@ var index = createCommonjsModule(function (module) {
 				} else {
 
 					// unknown color
-
+					console.warn('THREE.Color: Unknown color ' + style);
 				}
 			}
 
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this.r, this.g, this.b);
 		},
 
-		copy: function copy(color) {
+		copy: function (color) {
 
 			this.r = color.r;
 			this.g = color.g;
@@ -716,7 +719,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyGammaToLinear: function copyGammaToLinear(color, gammaFactor) {
+		copyGammaToLinear: function (color, gammaFactor) {
 
 			if (gammaFactor === undefined) gammaFactor = 2.0;
 
@@ -727,7 +730,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyLinearToGamma: function copyLinearToGamma(color, gammaFactor) {
+		copyLinearToGamma: function (color, gammaFactor) {
 
 			if (gammaFactor === undefined) gammaFactor = 2.0;
 
@@ -740,7 +743,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		convertGammaToLinear: function convertGammaToLinear() {
+		convertGammaToLinear: function () {
 
 			var r = this.r,
 			    g = this.g,
@@ -753,7 +756,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		convertLinearToGamma: function convertLinearToGamma() {
+		convertLinearToGamma: function () {
 
 			this.r = Math.sqrt(this.r);
 			this.g = Math.sqrt(this.g);
@@ -762,17 +765,17 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		getHex: function getHex() {
+		getHex: function () {
 
 			return this.r * 255 << 16 ^ this.g * 255 << 8 ^ this.b * 255 << 0;
 		},
 
-		getHexString: function getHexString() {
+		getHexString: function () {
 
 			return ('000000' + this.getHex().toString(16)).slice(-6);
 		},
 
-		getHSL: function getHSL(optionalTarget) {
+		getHSL: function (optionalTarget) {
 
 			// h,s,l ranges are in 0.0 - 1.0
 
@@ -819,12 +822,12 @@ var index = createCommonjsModule(function (module) {
 			return hsl;
 		},
 
-		getStyle: function getStyle() {
+		getStyle: function () {
 
 			return 'rgb(' + (this.r * 255 | 0) + ',' + (this.g * 255 | 0) + ',' + (this.b * 255 | 0) + ')';
 		},
 
-		offsetHSL: function offsetHSL(h, s, l) {
+		offsetHSL: function (h, s, l) {
 
 			var hsl = this.getHSL();
 
@@ -835,7 +838,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		add: function add(color) {
+		add: function (color) {
 
 			this.r += color.r;
 			this.g += color.g;
@@ -844,7 +847,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addColors: function addColors(color1, color2) {
+		addColors: function (color1, color2) {
 
 			this.r = color1.r + color2.r;
 			this.g = color1.g + color2.g;
@@ -853,7 +856,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScalar: function addScalar(s) {
+		addScalar: function (s) {
 
 			this.r += s;
 			this.g += s;
@@ -862,7 +865,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiply: function multiply(color) {
+		multiply: function (color) {
 
 			this.r *= color.r;
 			this.g *= color.g;
@@ -871,7 +874,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyScalar: function multiplyScalar(s) {
+		multiplyScalar: function (s) {
 
 			this.r *= s;
 			this.g *= s;
@@ -880,7 +883,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		lerp: function lerp(color, alpha) {
+		lerp: function (color, alpha) {
 
 			this.r += (color.r - this.r) * alpha;
 			this.g += (color.g - this.g) * alpha;
@@ -889,12 +892,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		equals: function equals(c) {
+		equals: function (c) {
 
 			return c.r === this.r && c.g === this.g && c.b === this.b;
 		},
 
-		fromArray: function fromArray(array, offset) {
+		fromArray: function (array, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -905,7 +908,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -985,7 +988,7 @@ var index = createCommonjsModule(function (module) {
 
 		//
 
-		set: function set(x, y) {
+		set: function (x, y) {
 
 			this.x = x;
 			this.y = y;
@@ -993,7 +996,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setScalar: function setScalar(scalar) {
+		setScalar: function (scalar) {
 
 			this.x = scalar;
 			this.y = scalar;
@@ -1001,21 +1004,21 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setX: function setX(x) {
+		setX: function (x) {
 
 			this.x = x;
 
 			return this;
 		},
 
-		setY: function setY(y) {
+		setY: function (y) {
 
 			this.y = y;
 
 			return this;
 		},
 
-		setComponent: function setComponent(index, value) {
+		setComponent: function (index, value) {
 
 			switch (index) {
 
@@ -1029,7 +1032,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		getComponent: function getComponent(index) {
+		getComponent: function (index) {
 
 			switch (index) {
 
@@ -1043,12 +1046,12 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this.x, this.y);
 		},
 
-		copy: function copy(v) {
+		copy: function (v) {
 
 			this.x = v.x;
 			this.y = v.y;
@@ -1056,9 +1059,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		add: function add(v, w) {
+		add: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector2: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -1068,7 +1073,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScalar: function addScalar(s) {
+		addScalar: function (s) {
 
 			this.x += s;
 			this.y += s;
@@ -1076,7 +1081,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addVectors: function addVectors(a, b) {
+		addVectors: function (a, b) {
 
 			this.x = a.x + b.x;
 			this.y = a.y + b.y;
@@ -1084,7 +1089,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScaledVector: function addScaledVector(v, s) {
+		addScaledVector: function (v, s) {
 
 			this.x += v.x * s;
 			this.y += v.y * s;
@@ -1092,9 +1097,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		sub: function sub(v, w) {
+		sub: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector2: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -1104,7 +1111,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subScalar: function subScalar(s) {
+		subScalar: function (s) {
 
 			this.x -= s;
 			this.y -= s;
@@ -1112,7 +1119,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subVectors: function subVectors(a, b) {
+		subVectors: function (a, b) {
 
 			this.x = a.x - b.x;
 			this.y = a.y - b.y;
@@ -1120,7 +1127,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiply: function multiply(v) {
+		multiply: function (v) {
 
 			this.x *= v.x;
 			this.y *= v.y;
@@ -1128,7 +1135,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyScalar: function multiplyScalar(scalar) {
+		multiplyScalar: function (scalar) {
 
 			if (isFinite(scalar)) {
 
@@ -1143,7 +1150,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		divide: function divide(v) {
+		divide: function (v) {
 
 			this.x /= v.x;
 			this.y /= v.y;
@@ -1151,12 +1158,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		divideScalar: function divideScalar(scalar) {
+		divideScalar: function (scalar) {
 
 			return this.multiplyScalar(1 / scalar);
 		},
 
-		min: function min(v) {
+		min: function (v) {
 
 			this.x = Math.min(this.x, v.x);
 			this.y = Math.min(this.y, v.y);
@@ -1164,7 +1171,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		max: function max(v) {
+		max: function (v) {
 
 			this.x = Math.max(this.x, v.x);
 			this.y = Math.max(this.y, v.y);
@@ -1172,7 +1179,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clamp: function clamp(min, max) {
+		clamp: function (min, max) {
 
 			// This function assumes min < max, if this assumption isn't true it will not operate correctly
 
@@ -1201,7 +1208,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clampLength: function clampLength(min, max) {
+		clampLength: function (min, max) {
 
 			var length = this.length();
 
@@ -1210,7 +1217,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		floor: function floor() {
+		floor: function () {
 
 			this.x = Math.floor(this.x);
 			this.y = Math.floor(this.y);
@@ -1218,7 +1225,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		ceil: function ceil() {
+		ceil: function () {
 
 			this.x = Math.ceil(this.x);
 			this.y = Math.ceil(this.y);
@@ -1226,7 +1233,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		round: function round() {
+		round: function () {
 
 			this.x = Math.round(this.x);
 			this.y = Math.round(this.y);
@@ -1234,7 +1241,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		roundToZero: function roundToZero() {
+		roundToZero: function () {
 
 			this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x);
 			this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y);
@@ -1242,7 +1249,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		negate: function negate() {
+		negate: function () {
 
 			this.x = -this.x;
 			this.y = -this.y;
@@ -1250,32 +1257,32 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dot: function dot(v) {
+		dot: function (v) {
 
 			return this.x * v.x + this.y * v.y;
 		},
 
-		lengthSq: function lengthSq() {
+		lengthSq: function () {
 
 			return this.x * this.x + this.y * this.y;
 		},
 
-		length: function length() {
+		length: function () {
 
 			return Math.sqrt(this.x * this.x + this.y * this.y);
 		},
 
-		lengthManhattan: function lengthManhattan() {
+		lengthManhattan: function () {
 
 			return Math.abs(this.x) + Math.abs(this.y);
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			return this.divideScalar(this.length());
 		},
 
-		angle: function angle() {
+		angle: function () {
 
 			// computes the angle in radians with respect to the positive x-axis
 
@@ -1286,24 +1293,24 @@ var index = createCommonjsModule(function (module) {
 			return angle;
 		},
 
-		distanceTo: function distanceTo(v) {
+		distanceTo: function (v) {
 
 			return Math.sqrt(this.distanceToSquared(v));
 		},
 
-		distanceToSquared: function distanceToSquared(v) {
+		distanceToSquared: function (v) {
 
 			var dx = this.x - v.x,
 			    dy = this.y - v.y;
 			return dx * dx + dy * dy;
 		},
 
-		setLength: function setLength(length) {
+		setLength: function (length) {
 
 			return this.multiplyScalar(length / this.length());
 		},
 
-		lerp: function lerp(v, alpha) {
+		lerp: function (v, alpha) {
 
 			this.x += (v.x - this.x) * alpha;
 			this.y += (v.y - this.y) * alpha;
@@ -1311,19 +1318,19 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		lerpVectors: function lerpVectors(v1, v2, alpha) {
+		lerpVectors: function (v1, v2, alpha) {
 
 			this.subVectors(v2, v1).multiplyScalar(alpha).add(v1);
 
 			return this;
 		},
 
-		equals: function equals(v) {
+		equals: function (v) {
 
 			return v.x === this.x && v.y === this.y;
 		},
 
-		fromArray: function fromArray(array, offset) {
+		fromArray: function (array, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -1333,7 +1340,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -1344,7 +1351,7 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		fromAttribute: function fromAttribute(attribute, index, offset) {
+		fromAttribute: function (attribute, index, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -1356,7 +1363,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		rotateAround: function rotateAround(center, angle) {
+		rotateAround: function (center, angle) {
 
 			var c = Math.cos(angle),
 			    s = Math.sin(angle);
@@ -1394,7 +1401,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Vector3,
 
-		set: function set(x, y, z) {
+		set: function (x, y, z) {
 
 			this.x = x;
 			this.y = y;
@@ -1403,7 +1410,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setScalar: function setScalar(scalar) {
+		setScalar: function (scalar) {
 
 			this.x = scalar;
 			this.y = scalar;
@@ -1412,28 +1419,28 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setX: function setX(x) {
+		setX: function (x) {
 
 			this.x = x;
 
 			return this;
 		},
 
-		setY: function setY(y) {
+		setY: function (y) {
 
 			this.y = y;
 
 			return this;
 		},
 
-		setZ: function setZ(z) {
+		setZ: function (z) {
 
 			this.z = z;
 
 			return this;
 		},
 
-		setComponent: function setComponent(index, value) {
+		setComponent: function (index, value) {
 
 			switch (index) {
 
@@ -1449,7 +1456,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		getComponent: function getComponent(index) {
+		getComponent: function (index) {
 
 			switch (index) {
 
@@ -1465,12 +1472,12 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this.x, this.y, this.z);
 		},
 
-		copy: function copy(v) {
+		copy: function (v) {
 
 			this.x = v.x;
 			this.y = v.y;
@@ -1479,9 +1486,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		add: function add(v, w) {
+		add: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector3: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -1492,7 +1501,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScalar: function addScalar(s) {
+		addScalar: function (s) {
 
 			this.x += s;
 			this.y += s;
@@ -1501,7 +1510,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addVectors: function addVectors(a, b) {
+		addVectors: function (a, b) {
 
 			this.x = a.x + b.x;
 			this.y = a.y + b.y;
@@ -1510,7 +1519,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScaledVector: function addScaledVector(v, s) {
+		addScaledVector: function (v, s) {
 
 			this.x += v.x * s;
 			this.y += v.y * s;
@@ -1519,9 +1528,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		sub: function sub(v, w) {
+		sub: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector3: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -1532,7 +1543,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subScalar: function subScalar(s) {
+		subScalar: function (s) {
 
 			this.x -= s;
 			this.y -= s;
@@ -1541,7 +1552,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subVectors: function subVectors(a, b) {
+		subVectors: function (a, b) {
 
 			this.x = a.x - b.x;
 			this.y = a.y - b.y;
@@ -1550,9 +1561,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiply: function multiply(v, w) {
+		multiply: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector3: .multiply() now only accepts one argument. Use .multiplyVectors( a, b ) instead.');
 				return this.multiplyVectors(v, w);
 			}
 
@@ -1563,7 +1576,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyScalar: function multiplyScalar(scalar) {
+		multiplyScalar: function (scalar) {
 
 			if (isFinite(scalar)) {
 
@@ -1580,7 +1593,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyVectors: function multiplyVectors(a, b) {
+		multiplyVectors: function (a, b) {
 
 			this.x = a.x * b.x;
 			this.y = a.y * b.y;
@@ -1595,7 +1608,10 @@ var index = createCommonjsModule(function (module) {
 
 			return function applyEuler(euler) {
 
-				if (euler instanceof THREE.Euler === false) {}
+				if (euler instanceof THREE.Euler === false) {
+
+					console.error('THREE.Vector3: .applyEuler() now expects an Euler rotation rather than a Vector3 and order.');
+				}
 
 				if (quaternion === undefined) quaternion = new THREE.Quaternion();
 
@@ -1619,7 +1635,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		applyMatrix3: function applyMatrix3(m) {
+		applyMatrix3: function (m) {
 
 			var x = this.x;
 			var y = this.y;
@@ -1634,7 +1650,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		applyMatrix4: function applyMatrix4(m) {
+		applyMatrix4: function (m) {
 
 			// input: THREE.Matrix4 affine matrix
 
@@ -1651,7 +1667,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		applyProjection: function applyProjection(m) {
+		applyProjection: function (m) {
 
 			// input: THREE.Matrix4 projection matrix
 
@@ -1669,7 +1685,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		applyQuaternion: function applyQuaternion(q) {
+		applyQuaternion: function (q) {
 
 			var x = this.x;
 			var y = this.y;
@@ -1722,7 +1738,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		transformDirection: function transformDirection(m) {
+		transformDirection: function (m) {
 
 			// input: THREE.Matrix4 affine matrix
 			// vector interpreted as a direction
@@ -1742,7 +1758,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		divide: function divide(v) {
+		divide: function (v) {
 
 			this.x /= v.x;
 			this.y /= v.y;
@@ -1751,12 +1767,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		divideScalar: function divideScalar(scalar) {
+		divideScalar: function (scalar) {
 
 			return this.multiplyScalar(1 / scalar);
 		},
 
-		min: function min(v) {
+		min: function (v) {
 
 			this.x = Math.min(this.x, v.x);
 			this.y = Math.min(this.y, v.y);
@@ -1765,7 +1781,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		max: function max(v) {
+		max: function (v) {
 
 			this.x = Math.max(this.x, v.x);
 			this.y = Math.max(this.y, v.y);
@@ -1774,7 +1790,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clamp: function clamp(min, max) {
+		clamp: function (min, max) {
 
 			// This function assumes min < max, if this assumption isn't true it will not operate correctly
 
@@ -1804,7 +1820,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clampLength: function clampLength(min, max) {
+		clampLength: function (min, max) {
 
 			var length = this.length();
 
@@ -1813,7 +1829,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		floor: function floor() {
+		floor: function () {
 
 			this.x = Math.floor(this.x);
 			this.y = Math.floor(this.y);
@@ -1822,7 +1838,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		ceil: function ceil() {
+		ceil: function () {
 
 			this.x = Math.ceil(this.x);
 			this.y = Math.ceil(this.y);
@@ -1831,7 +1847,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		round: function round() {
+		round: function () {
 
 			this.x = Math.round(this.x);
 			this.y = Math.round(this.y);
@@ -1840,7 +1856,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		roundToZero: function roundToZero() {
+		roundToZero: function () {
 
 			this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x);
 			this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y);
@@ -1849,7 +1865,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		negate: function negate() {
+		negate: function () {
 
 			this.x = -this.x;
 			this.y = -this.y;
@@ -1858,37 +1874,37 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dot: function dot(v) {
+		dot: function (v) {
 
 			return this.x * v.x + this.y * v.y + this.z * v.z;
 		},
 
-		lengthSq: function lengthSq() {
+		lengthSq: function () {
 
 			return this.x * this.x + this.y * this.y + this.z * this.z;
 		},
 
-		length: function length() {
+		length: function () {
 
 			return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 		},
 
-		lengthManhattan: function lengthManhattan() {
+		lengthManhattan: function () {
 
 			return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z);
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			return this.divideScalar(this.length());
 		},
 
-		setLength: function setLength(length) {
+		setLength: function (length) {
 
 			return this.multiplyScalar(length / this.length());
 		},
 
-		lerp: function lerp(v, alpha) {
+		lerp: function (v, alpha) {
 
 			this.x += (v.x - this.x) * alpha;
 			this.y += (v.y - this.y) * alpha;
@@ -1897,16 +1913,18 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		lerpVectors: function lerpVectors(v1, v2, alpha) {
+		lerpVectors: function (v1, v2, alpha) {
 
 			this.subVectors(v2, v1).multiplyScalar(alpha).add(v1);
 
 			return this;
 		},
 
-		cross: function cross(v, w) {
+		cross: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector3: .cross() now only accepts one argument. Use .crossVectors( a, b ) instead.');
 				return this.crossVectors(v, w);
 			}
 
@@ -1921,7 +1939,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		crossVectors: function crossVectors(a, b) {
+		crossVectors: function (a, b) {
 
 			var ax = a.x,
 			    ay = a.y,
@@ -1982,7 +2000,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		angleTo: function angleTo(v) {
+		angleTo: function (v) {
 
 			var theta = this.dot(v) / Math.sqrt(this.lengthSq() * v.lengthSq());
 
@@ -1991,12 +2009,12 @@ var index = createCommonjsModule(function (module) {
 			return Math.acos(THREE.Math.clamp(theta, -1, 1));
 		},
 
-		distanceTo: function distanceTo(v) {
+		distanceTo: function (v) {
 
 			return Math.sqrt(this.distanceToSquared(v));
 		},
 
-		distanceToSquared: function distanceToSquared(v) {
+		distanceToSquared: function (v) {
 
 			var dx = this.x - v.x;
 			var dy = this.y - v.y;
@@ -2005,7 +2023,7 @@ var index = createCommonjsModule(function (module) {
 			return dx * dx + dy * dy + dz * dz;
 		},
 
-		setFromSpherical: function setFromSpherical(s) {
+		setFromSpherical: function (s) {
 
 			var sinPhiRadius = Math.sin(s.phi) * s.radius;
 
@@ -2016,12 +2034,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromMatrixPosition: function setFromMatrixPosition(m) {
+		setFromMatrixPosition: function (m) {
 
 			return this.setFromMatrixColumn(m, 3);
 		},
 
-		setFromMatrixScale: function setFromMatrixScale(m) {
+		setFromMatrixScale: function (m) {
 
 			var sx = this.setFromMatrixColumn(m, 0).length();
 			var sy = this.setFromMatrixColumn(m, 1).length();
@@ -2034,9 +2052,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromMatrixColumn: function setFromMatrixColumn(m, index) {
+		setFromMatrixColumn: function (m, index) {
 
 			if (typeof m === 'number') {
+
+				console.warn('THREE.Vector3: setFromMatrixColumn now expects ( matrix, index ).');
 
 				m = arguments[1];
 				index = arguments[0];
@@ -2045,12 +2065,12 @@ var index = createCommonjsModule(function (module) {
 			return this.fromArray(m.elements, index * 4);
 		},
 
-		equals: function equals(v) {
+		equals: function (v) {
 
 			return v.x === this.x && v.y === this.y && v.z === this.z;
 		},
 
-		fromArray: function fromArray(array, offset) {
+		fromArray: function (array, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -2061,7 +2081,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -2073,7 +2093,7 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		fromAttribute: function fromAttribute(attribute, index, offset) {
+		fromAttribute: function (attribute, index, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -2110,7 +2130,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Vector4,
 
-		set: function set(x, y, z, w) {
+		set: function (x, y, z, w) {
 
 			this.x = x;
 			this.y = y;
@@ -2120,7 +2140,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setScalar: function setScalar(scalar) {
+		setScalar: function (scalar) {
 
 			this.x = scalar;
 			this.y = scalar;
@@ -2130,35 +2150,35 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setX: function setX(x) {
+		setX: function (x) {
 
 			this.x = x;
 
 			return this;
 		},
 
-		setY: function setY(y) {
+		setY: function (y) {
 
 			this.y = y;
 
 			return this;
 		},
 
-		setZ: function setZ(z) {
+		setZ: function (z) {
 
 			this.z = z;
 
 			return this;
 		},
 
-		setW: function setW(w) {
+		setW: function (w) {
 
 			this.w = w;
 
 			return this;
 		},
 
-		setComponent: function setComponent(index, value) {
+		setComponent: function (index, value) {
 
 			switch (index) {
 
@@ -2176,7 +2196,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		getComponent: function getComponent(index) {
+		getComponent: function (index) {
 
 			switch (index) {
 
@@ -2194,12 +2214,12 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this.x, this.y, this.z, this.w);
 		},
 
-		copy: function copy(v) {
+		copy: function (v) {
 
 			this.x = v.x;
 			this.y = v.y;
@@ -2209,9 +2229,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		add: function add(v, w) {
+		add: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector4: .add() now only accepts one argument. Use .addVectors( a, b ) instead.');
 				return this.addVectors(v, w);
 			}
 
@@ -2223,7 +2245,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScalar: function addScalar(s) {
+		addScalar: function (s) {
 
 			this.x += s;
 			this.y += s;
@@ -2233,7 +2255,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addVectors: function addVectors(a, b) {
+		addVectors: function (a, b) {
 
 			this.x = a.x + b.x;
 			this.y = a.y + b.y;
@@ -2243,7 +2265,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		addScaledVector: function addScaledVector(v, s) {
+		addScaledVector: function (v, s) {
 
 			this.x += v.x * s;
 			this.y += v.y * s;
@@ -2253,9 +2275,11 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		sub: function sub(v, w) {
+		sub: function (v, w) {
 
 			if (w !== undefined) {
+
+				console.warn('THREE.Vector4: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.');
 				return this.subVectors(v, w);
 			}
 
@@ -2267,7 +2291,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subScalar: function subScalar(s) {
+		subScalar: function (s) {
 
 			this.x -= s;
 			this.y -= s;
@@ -2277,7 +2301,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		subVectors: function subVectors(a, b) {
+		subVectors: function (a, b) {
 
 			this.x = a.x - b.x;
 			this.y = a.y - b.y;
@@ -2287,7 +2311,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyScalar: function multiplyScalar(scalar) {
+		multiplyScalar: function (scalar) {
 
 			if (isFinite(scalar)) {
 
@@ -2306,7 +2330,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		applyMatrix4: function applyMatrix4(m) {
+		applyMatrix4: function (m) {
 
 			var x = this.x;
 			var y = this.y;
@@ -2323,12 +2347,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		divideScalar: function divideScalar(scalar) {
+		divideScalar: function (scalar) {
 
 			return this.multiplyScalar(1 / scalar);
 		},
 
-		setAxisAngleFromQuaternion: function setAxisAngleFromQuaternion(q) {
+		setAxisAngleFromQuaternion: function (q) {
 
 			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
 
@@ -2353,7 +2377,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setAxisAngleFromRotationMatrix: function setAxisAngleFromRotationMatrix(m) {
+		setAxisAngleFromRotationMatrix: function (m) {
 
 			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
 
@@ -2475,7 +2499,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		min: function min(v) {
+		min: function (v) {
 
 			this.x = Math.min(this.x, v.x);
 			this.y = Math.min(this.y, v.y);
@@ -2485,7 +2509,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		max: function max(v) {
+		max: function (v) {
 
 			this.x = Math.max(this.x, v.x);
 			this.y = Math.max(this.y, v.y);
@@ -2495,7 +2519,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clamp: function clamp(min, max) {
+		clamp: function (min, max) {
 
 			// This function assumes min < max, if this assumption isn't true it will not operate correctly
 
@@ -2526,7 +2550,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		floor: function floor() {
+		floor: function () {
 
 			this.x = Math.floor(this.x);
 			this.y = Math.floor(this.y);
@@ -2536,7 +2560,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		ceil: function ceil() {
+		ceil: function () {
 
 			this.x = Math.ceil(this.x);
 			this.y = Math.ceil(this.y);
@@ -2546,7 +2570,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		round: function round() {
+		round: function () {
 
 			this.x = Math.round(this.x);
 			this.y = Math.round(this.y);
@@ -2556,7 +2580,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		roundToZero: function roundToZero() {
+		roundToZero: function () {
 
 			this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x);
 			this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y);
@@ -2566,7 +2590,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		negate: function negate() {
+		negate: function () {
 
 			this.x = -this.x;
 			this.y = -this.y;
@@ -2576,37 +2600,37 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dot: function dot(v) {
+		dot: function (v) {
 
 			return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w;
 		},
 
-		lengthSq: function lengthSq() {
+		lengthSq: function () {
 
 			return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
 		},
 
-		length: function length() {
+		length: function () {
 
 			return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
 		},
 
-		lengthManhattan: function lengthManhattan() {
+		lengthManhattan: function () {
 
 			return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z) + Math.abs(this.w);
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			return this.divideScalar(this.length());
 		},
 
-		setLength: function setLength(length) {
+		setLength: function (length) {
 
 			return this.multiplyScalar(length / this.length());
 		},
 
-		lerp: function lerp(v, alpha) {
+		lerp: function (v, alpha) {
 
 			this.x += (v.x - this.x) * alpha;
 			this.y += (v.y - this.y) * alpha;
@@ -2616,19 +2640,19 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		lerpVectors: function lerpVectors(v1, v2, alpha) {
+		lerpVectors: function (v1, v2, alpha) {
 
 			this.subVectors(v2, v1).multiplyScalar(alpha).add(v1);
 
 			return this;
 		},
 
-		equals: function equals(v) {
+		equals: function (v) {
 
 			return v.x === this.x && v.y === this.y && v.z === this.z && v.w === this.w;
 		},
 
-		fromArray: function fromArray(array, offset) {
+		fromArray: function (array, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -2640,7 +2664,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -2653,7 +2677,7 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		fromAttribute: function fromAttribute(attribute, index, offset) {
+		fromAttribute: function (attribute, index, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -2682,14 +2706,17 @@ var index = createCommonjsModule(function (module) {
 
 		this.elements = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
 
-		if (arguments.length > 0) {}
+		if (arguments.length > 0) {
+
+			console.error('THREE.Matrix3: the constructor no longer reads arguments. use .set() instead.');
+		}
 	};
 
 	THREE.Matrix3.prototype = {
 
 		constructor: THREE.Matrix3,
 
-		set: function set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
+		set: function (n11, n12, n13, n21, n22, n23, n31, n32, n33) {
 
 			var te = this.elements;
 
@@ -2700,19 +2727,19 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		identity: function identity() {
+		identity: function () {
 
 			this.set(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().fromArray(this.elements);
 		},
 
-		copy: function copy(m) {
+		copy: function (m) {
 
 			var me = m.elements;
 
@@ -2721,7 +2748,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromMatrix4: function setFromMatrix4(m) {
+		setFromMatrix4: function (m) {
 
 			var me = m.elements;
 
@@ -2776,7 +2803,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		multiplyScalar: function multiplyScalar(s) {
+		multiplyScalar: function (s) {
 
 			var te = this.elements;
 
@@ -2787,7 +2814,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		determinant: function determinant() {
+		determinant: function () {
 
 			var te = this.elements;
 
@@ -2804,9 +2831,12 @@ var index = createCommonjsModule(function (module) {
 			return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
 		},
 
-		getInverse: function getInverse(matrix, throwOnDegenerate) {
+		getInverse: function (matrix, throwOnDegenerate) {
 
-			if (matrix instanceof THREE.Matrix4) {}
+			if (matrix instanceof THREE.Matrix4) {
+
+				console.warn("THREE.Matrix3.getInverse no longer takes a Matrix4 argument.");
+			}
 
 			var me = matrix.elements,
 			    te = this.elements,
@@ -2828,7 +2858,13 @@ var index = createCommonjsModule(function (module) {
 
 				var msg = "THREE.Matrix3.getInverse(): can't invert matrix, determinant is 0";
 
-				if (throwOnDegenerate || false) {} else {}
+				if (throwOnDegenerate || false) {
+
+					throw new Error(msg);
+				} else {
+
+					console.warn(msg);
+				}
 
 				return this.identity();
 			}
@@ -2848,7 +2884,7 @@ var index = createCommonjsModule(function (module) {
 			return this.multiplyScalar(1 / det);
 		},
 
-		transpose: function transpose() {
+		transpose: function () {
 
 			var tmp,
 			    m = this.elements;
@@ -2860,7 +2896,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		flattenToArrayOffset: function flattenToArrayOffset(array, offset) {
+		flattenToArrayOffset: function (array, offset) {
 
 			var te = this.elements;
 
@@ -2879,12 +2915,12 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		getNormalMatrix: function getNormalMatrix(matrix4) {
+		getNormalMatrix: function (matrix4) {
 
 			return this.setFromMatrix4(matrix4).getInverse(this).transpose();
 		},
 
-		transposeIntoArray: function transposeIntoArray(r) {
+		transposeIntoArray: function (r) {
 
 			var m = this.elements;
 
@@ -2901,14 +2937,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		fromArray: function fromArray(array) {
+		fromArray: function (array) {
 
 			this.elements.set(array);
 
 			return this;
 		},
 
-		toArray: function toArray() {
+		toArray: function () {
 
 			var te = this.elements;
 
@@ -2936,14 +2972,17 @@ var index = createCommonjsModule(function (module) {
 
 		this.elements = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
 
-		if (arguments.length > 0) {}
+		if (arguments.length > 0) {
+
+			console.error('THREE.Matrix4: the constructor no longer reads arguments. use .set() instead.');
+		}
 	};
 
 	THREE.Matrix4.prototype = {
 
 		constructor: THREE.Matrix4,
 
-		set: function set(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44) {
+		set: function (n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44) {
 
 			var te = this.elements;
 
@@ -2955,26 +2994,26 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		identity: function identity() {
+		identity: function () {
 
 			this.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new THREE.Matrix4().fromArray(this.elements);
 		},
 
-		copy: function copy(m) {
+		copy: function (m) {
 
 			this.elements.set(m.elements);
 
 			return this;
 		},
 
-		copyPosition: function copyPosition(m) {
+		copyPosition: function (m) {
 
 			var te = this.elements;
 			var me = m.elements;
@@ -2986,7 +3025,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		extractBasis: function extractBasis(xAxis, yAxis, zAxis) {
+		extractBasis: function (xAxis, yAxis, zAxis) {
 
 			xAxis.setFromMatrixColumn(this, 0);
 			yAxis.setFromMatrixColumn(this, 1);
@@ -2995,7 +3034,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeBasis: function makeBasis(xAxis, yAxis, zAxis) {
+		makeBasis: function (xAxis, yAxis, zAxis) {
 
 			this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1);
 
@@ -3033,9 +3072,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		makeRotationFromEuler: function makeRotationFromEuler(euler) {
+		makeRotationFromEuler: function (euler) {
 
-			if (euler instanceof THREE.Euler === false) {}
+			if (euler instanceof THREE.Euler === false) {
+
+				console.error('THREE.Matrix: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.');
+			}
 
 			var te = this.elements;
 
@@ -3173,7 +3215,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeRotationFromQuaternion: function makeRotationFromQuaternion(q) {
+		makeRotationFromQuaternion: function (q) {
 
 			var te = this.elements;
 
@@ -3257,16 +3299,18 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		multiply: function multiply(m, n) {
+		multiply: function (m, n) {
 
 			if (n !== undefined) {
+
+				console.warn('THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.');
 				return this.multiplyMatrices(m, n);
 			}
 
 			return this.multiplyMatrices(this, m);
 		},
 
-		multiplyMatrices: function multiplyMatrices(a, b) {
+		multiplyMatrices: function (a, b) {
 
 			var ae = a.elements;
 			var be = b.elements;
@@ -3329,7 +3373,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyToArray: function multiplyToArray(a, b, r) {
+		multiplyToArray: function (a, b, r) {
 
 			var te = this.elements;
 
@@ -3343,7 +3387,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiplyScalar: function multiplyScalar(s) {
+		multiplyScalar: function (s) {
 
 			var te = this.elements;
 
@@ -3401,7 +3445,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		determinant: function determinant() {
+		determinant: function () {
 
 			var te = this.elements;
 
@@ -3428,7 +3472,7 @@ var index = createCommonjsModule(function (module) {
 			return n41 * (+n14 * n23 * n32 - n13 * n24 * n32 - n14 * n22 * n33 + n12 * n24 * n33 + n13 * n22 * n34 - n12 * n23 * n34) + n42 * (+n11 * n23 * n34 - n11 * n24 * n33 + n14 * n21 * n33 - n13 * n21 * n34 + n13 * n24 * n31 - n14 * n23 * n31) + n43 * (+n11 * n24 * n32 - n11 * n22 * n34 - n14 * n21 * n32 + n12 * n21 * n34 + n14 * n22 * n31 - n12 * n24 * n31) + n44 * (-n13 * n22 * n31 - n11 * n23 * n32 + n11 * n22 * n33 + n13 * n21 * n32 - n12 * n21 * n33 + n12 * n23 * n31);
 		},
 
-		transpose: function transpose() {
+		transpose: function () {
 
 			var te = this.elements;
 			var tmp;
@@ -3444,7 +3488,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		flattenToArrayOffset: function flattenToArrayOffset(array, offset) {
+		flattenToArrayOffset: function (array, offset) {
 
 			var te = this.elements;
 
@@ -3478,12 +3522,13 @@ var index = createCommonjsModule(function (module) {
 			return function () {
 
 				if (v1 === undefined) v1 = new THREE.Vector3();
+				console.warn('THREE.Matrix4: .getPosition() has been removed. Use Vector3.setFromMatrixPosition( matrix ) instead.');
 
 				return v1.setFromMatrixColumn(this, 3);
 			};
 		}(),
 
-		setPosition: function setPosition(v) {
+		setPosition: function (v) {
 
 			var te = this.elements;
 
@@ -3494,7 +3539,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		getInverse: function getInverse(m, throwOnDegenerate) {
+		getInverse: function (m, throwOnDegenerate) {
 
 			// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 			var te = this.elements,
@@ -3526,7 +3571,13 @@ var index = createCommonjsModule(function (module) {
 
 				var msg = "THREE.Matrix4.getInverse(): can't invert matrix, determinant is 0";
 
-				if (throwOnDegenerate || false) {} else {}
+				if (throwOnDegenerate || false) {
+
+					throw new Error(msg);
+				} else {
+
+					console.warn(msg);
+				}
 
 				return this.identity();
 			}
@@ -3554,7 +3605,7 @@ var index = createCommonjsModule(function (module) {
 			return this.multiplyScalar(1 / det);
 		},
 
-		scale: function scale(v) {
+		scale: function (v) {
 
 			var te = this.elements;
 			var x = v.x,
@@ -3569,7 +3620,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		getMaxScaleOnAxis: function getMaxScaleOnAxis() {
+		getMaxScaleOnAxis: function () {
 
 			var te = this.elements;
 
@@ -3580,14 +3631,14 @@ var index = createCommonjsModule(function (module) {
 			return Math.sqrt(Math.max(scaleXSq, scaleYSq, scaleZSq));
 		},
 
-		makeTranslation: function makeTranslation(x, y, z) {
+		makeTranslation: function (x, y, z) {
 
 			this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1);
 
 			return this;
 		},
 
-		makeRotationX: function makeRotationX(theta) {
+		makeRotationX: function (theta) {
 
 			var c = Math.cos(theta),
 			    s = Math.sin(theta);
@@ -3597,7 +3648,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeRotationY: function makeRotationY(theta) {
+		makeRotationY: function (theta) {
 
 			var c = Math.cos(theta),
 			    s = Math.sin(theta);
@@ -3607,7 +3658,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeRotationZ: function makeRotationZ(theta) {
+		makeRotationZ: function (theta) {
 
 			var c = Math.cos(theta),
 			    s = Math.sin(theta);
@@ -3617,7 +3668,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeRotationAxis: function makeRotationAxis(axis, angle) {
+		makeRotationAxis: function (axis, angle) {
 
 			// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
@@ -3635,14 +3686,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeScale: function makeScale(x, y, z) {
+		makeScale: function (x, y, z) {
 
 			this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
 
 			return this;
 		},
 
-		compose: function compose(position, quaternion, scale) {
+		compose: function (position, quaternion, scale) {
 
 			this.makeRotationFromQuaternion(quaternion);
 			this.scale(scale);
@@ -3707,7 +3758,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		makeFrustum: function makeFrustum(left, right, bottom, top, near, far) {
+		makeFrustum: function (left, right, bottom, top, near, far) {
 
 			var te = this.elements;
 			var x = 2 * near / (right - left);
@@ -3726,7 +3777,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makePerspective: function makePerspective(fov, aspect, near, far) {
+		makePerspective: function (fov, aspect, near, far) {
 
 			var ymax = near * Math.tan(THREE.Math.degToRad(fov * 0.5));
 			var ymin = -ymax;
@@ -3736,7 +3787,7 @@ var index = createCommonjsModule(function (module) {
 			return this.makeFrustum(xmin, xmax, ymin, ymax, near, far);
 		},
 
-		makeOrthographic: function makeOrthographic(left, right, top, bottom, near, far) {
+		makeOrthographic: function (left, right, top, bottom, near, far) {
 
 			var te = this.elements;
 			var w = 1.0 / (right - left);
@@ -3755,7 +3806,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		equals: function equals(matrix) {
+		equals: function (matrix) {
 
 			var te = this.elements;
 			var me = matrix.elements;
@@ -3768,14 +3819,14 @@ var index = createCommonjsModule(function (module) {
 			return true;
 		},
 
-		fromArray: function fromArray(array) {
+		fromArray: function (array) {
 
 			this.elements.set(array);
 
 			return this;
 		},
 
-		toArray: function toArray() {
+		toArray: function () {
 
 			var te = this.elements;
 
@@ -3800,7 +3851,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Plane,
 
-		set: function set(normal, constant) {
+		set: function (normal, constant) {
 
 			this.normal.copy(normal);
 			this.constant = constant;
@@ -3808,7 +3859,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setComponents: function setComponents(x, y, z, w) {
+		setComponents: function (x, y, z, w) {
 
 			this.normal.set(x, y, z);
 			this.constant = w;
@@ -3816,7 +3867,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromNormalAndCoplanarPoint: function setFromNormalAndCoplanarPoint(normal, point) {
+		setFromNormalAndCoplanarPoint: function (normal, point) {
 
 			this.normal.copy(normal);
 			this.constant = -point.dot(this.normal); // must be this.normal, not normal, as this.normal is normalized
@@ -3841,12 +3892,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(plane) {
+		copy: function (plane) {
 
 			this.normal.copy(plane.normal);
 			this.constant = plane.constant;
@@ -3854,7 +3905,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			// Note: will lead to a divide by zero if the plane is invalid.
 
@@ -3865,7 +3916,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		negate: function negate() {
+		negate: function () {
 
 			this.constant *= -1;
 			this.normal.negate();
@@ -3873,22 +3924,22 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		distanceToPoint: function distanceToPoint(point) {
+		distanceToPoint: function (point) {
 
 			return this.normal.dot(point) + this.constant;
 		},
 
-		distanceToSphere: function distanceToSphere(sphere) {
+		distanceToSphere: function (sphere) {
 
 			return this.distanceToPoint(sphere.center) - sphere.radius;
 		},
 
-		projectPoint: function projectPoint(point, optionalTarget) {
+		projectPoint: function (point, optionalTarget) {
 
 			return this.orthoPoint(point, optionalTarget).sub(point).negate();
 		},
 
-		orthoPoint: function orthoPoint(point, optionalTarget) {
+		orthoPoint: function (point, optionalTarget) {
 
 			var perpendicularMagnitude = this.distanceToPoint(point);
 
@@ -3931,7 +3982,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		intersectsLine: function intersectsLine(line) {
+		intersectsLine: function (line) {
 
 			// Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
 
@@ -3941,17 +3992,17 @@ var index = createCommonjsModule(function (module) {
 			return startSign < 0 && endSign > 0 || endSign < 0 && startSign > 0;
 		},
 
-		intersectsBox: function intersectsBox(box) {
+		intersectsBox: function (box) {
 
 			return box.intersectsPlane(this);
 		},
 
-		intersectsSphere: function intersectsSphere(sphere) {
+		intersectsSphere: function (sphere) {
 
 			return sphere.intersectsPlane(this);
 		},
 
-		coplanarPoint: function coplanarPoint(optionalTarget) {
+		coplanarPoint: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			return result.copy(this.normal).multiplyScalar(-this.constant);
@@ -3979,14 +4030,14 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		translate: function translate(offset) {
+		translate: function (offset) {
 
 			this.constant = this.constant - offset.dot(this.normal);
 
 			return this;
 		},
 
-		equals: function equals(plane) {
+		equals: function (plane) {
 
 			return plane.normal.equals(this.normal) && plane.constant === this.constant;
 		}
@@ -4058,7 +4109,7 @@ var index = createCommonjsModule(function (module) {
 			this.onChangeCallback();
 		},
 
-		set: function set(x, y, z, w) {
+		set: function (x, y, z, w) {
 
 			this._x = x;
 			this._y = y;
@@ -4070,12 +4121,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this._x, this._y, this._z, this._w);
 		},
 
-		copy: function copy(quaternion) {
+		copy: function (quaternion) {
 
 			this._x = quaternion.x;
 			this._y = quaternion.y;
@@ -4087,7 +4138,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromEuler: function setFromEuler(euler, update) {
+		setFromEuler: function (euler, update) {
 
 			if (euler instanceof THREE.Euler === false) {
 
@@ -4150,7 +4201,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromAxisAngle: function setFromAxisAngle(axis, angle) {
+		setFromAxisAngle: function (axis, angle) {
 
 			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
 
@@ -4169,7 +4220,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromRotationMatrix: function setFromRotationMatrix(m) {
+		setFromRotationMatrix: function (m) {
 
 			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
@@ -4270,14 +4321,14 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		inverse: function inverse() {
+		inverse: function () {
 
 			this.conjugate().normalize();
 
 			return this;
 		},
 
-		conjugate: function conjugate() {
+		conjugate: function () {
 
 			this._x *= -1;
 			this._y *= -1;
@@ -4288,22 +4339,22 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dot: function dot(v) {
+		dot: function (v) {
 
 			return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
 		},
 
-		lengthSq: function lengthSq() {
+		lengthSq: function () {
 
 			return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
 		},
 
-		length: function length() {
+		length: function () {
 
 			return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w);
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			var l = this.length();
 
@@ -4328,16 +4379,18 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		multiply: function multiply(q, p) {
+		multiply: function (q, p) {
 
 			if (p !== undefined) {
+
+				console.warn('THREE.Quaternion: .multiply() now only accepts one argument. Use .multiplyQuaternions( a, b ) instead.');
 				return this.multiplyQuaternions(q, p);
 			}
 
 			return this.multiplyQuaternions(this, q);
 		},
 
-		multiplyQuaternions: function multiplyQuaternions(a, b) {
+		multiplyQuaternions: function (a, b) {
 
 			// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
 
@@ -4360,7 +4413,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		slerp: function slerp(qb, t) {
+		slerp: function (qb, t) {
 
 			if (t === 0) return this;
 			if (t === 1) return this.copy(qb);
@@ -4423,12 +4476,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		equals: function equals(quaternion) {
+		equals: function (quaternion) {
 
 			return quaternion._x === this._x && quaternion._y === this._y && quaternion._z === this._z && quaternion._w === this._w;
 		},
 
-		fromArray: function fromArray(array, offset) {
+		fromArray: function (array, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -4442,7 +4495,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -4455,25 +4508,25 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		onChange: function onChange(callback) {
+		onChange: function (callback) {
 
 			this.onChangeCallback = callback;
 
 			return this;
 		},
 
-		onChangeCallback: function onChangeCallback() {}
+		onChangeCallback: function () {}
 
 	};
 
 	Object.assign(THREE.Quaternion, {
 
-		slerp: function slerp(qa, qb, qm, t) {
+		slerp: function (qa, qb, qm, t) {
 
 			return qm.copy(qa).slerp(qb, t);
 		},
 
-		slerpFlat: function slerpFlat(dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t) {
+		slerpFlat: function (dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t) {
 
 			// fuzz-free, array-based Quaternion SLERP operation
 
@@ -4623,7 +4676,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Triangle,
 
-		set: function set(a, b, c) {
+		set: function (a, b, c) {
 
 			this.a.copy(a);
 			this.b.copy(b);
@@ -4632,7 +4685,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromPointsAndIndices: function setFromPointsAndIndices(points, i0, i1, i2) {
+		setFromPointsAndIndices: function (points, i0, i1, i2) {
 
 			this.a.copy(points[i0]);
 			this.b.copy(points[i1]);
@@ -4641,12 +4694,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(triangle) {
+		copy: function (triangle) {
 
 			this.a.copy(triangle.a);
 			this.b.copy(triangle.b);
@@ -4669,35 +4722,35 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		midpoint: function midpoint(optionalTarget) {
+		midpoint: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			return result.addVectors(this.a, this.b).add(this.c).multiplyScalar(1 / 3);
 		},
 
-		normal: function normal(optionalTarget) {
+		normal: function (optionalTarget) {
 
 			return THREE.Triangle.normal(this.a, this.b, this.c, optionalTarget);
 		},
 
-		plane: function plane(optionalTarget) {
+		plane: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Plane();
 
 			return result.setFromCoplanarPoints(this.a, this.b, this.c);
 		},
 
-		barycoordFromPoint: function barycoordFromPoint(point, optionalTarget) {
+		barycoordFromPoint: function (point, optionalTarget) {
 
 			return THREE.Triangle.barycoordFromPoint(point, this.a, this.b, this.c, optionalTarget);
 		},
 
-		containsPoint: function containsPoint(point) {
+		containsPoint: function (point) {
 
 			return THREE.Triangle.containsPoint(point, this.a, this.b, this.c);
 		},
 
-		equals: function equals(triangle) {
+		equals: function (triangle) {
 
 			return triangle.a.equals(this.a) && triangle.b.equals(this.b) && triangle.c.equals(this.c);
 		}
@@ -4721,7 +4774,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Box3,
 
-		set: function set(min, max) {
+		set: function (min, max) {
 
 			this.min.copy(min);
 			this.max.copy(max);
@@ -4729,7 +4782,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromArray: function setFromArray(array) {
+		setFromArray: function (array) {
 
 			this.makeEmpty();
 
@@ -4760,7 +4813,7 @@ var index = createCommonjsModule(function (module) {
 			this.max.set(maxX, maxY, maxZ);
 		},
 
-		setFromPoints: function setFromPoints(points) {
+		setFromPoints: function (points) {
 
 			this.makeEmpty();
 
@@ -4828,12 +4881,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(box) {
+		copy: function (box) {
 
 			this.min.copy(box.min);
 			this.max.copy(box.max);
@@ -4841,7 +4894,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		makeEmpty: function makeEmpty() {
+		makeEmpty: function () {
 
 			this.min.x = this.min.y = this.min.z = +Infinity;
 			this.max.x = this.max.y = this.max.z = -Infinity;
@@ -4849,26 +4902,26 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		isEmpty: function isEmpty() {
+		isEmpty: function () {
 
 			// this is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
 
 			return this.max.x < this.min.x || this.max.y < this.min.y || this.max.z < this.min.z;
 		},
 
-		center: function center(optionalTarget) {
+		center: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			return result.addVectors(this.min, this.max).multiplyScalar(0.5);
 		},
 
-		size: function size(optionalTarget) {
+		size: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			return result.subVectors(this.max, this.min);
 		},
 
-		expandByPoint: function expandByPoint(point) {
+		expandByPoint: function (point) {
 
 			this.min.min(point);
 			this.max.max(point);
@@ -4876,7 +4929,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		expandByVector: function expandByVector(vector) {
+		expandByVector: function (vector) {
 
 			this.min.sub(vector);
 			this.max.add(vector);
@@ -4884,7 +4937,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		expandByScalar: function expandByScalar(scalar) {
+		expandByScalar: function (scalar) {
 
 			this.min.addScalar(-scalar);
 			this.max.addScalar(scalar);
@@ -4892,7 +4945,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		containsPoint: function containsPoint(point) {
+		containsPoint: function (point) {
 
 			if (point.x < this.min.x || point.x > this.max.x || point.y < this.min.y || point.y > this.max.y || point.z < this.min.z || point.z > this.max.z) {
 
@@ -4902,7 +4955,7 @@ var index = createCommonjsModule(function (module) {
 			return true;
 		},
 
-		containsBox: function containsBox(box) {
+		containsBox: function (box) {
 
 			if (this.min.x <= box.min.x && box.max.x <= this.max.x && this.min.y <= box.min.y && box.max.y <= this.max.y && this.min.z <= box.min.z && box.max.z <= this.max.z) {
 
@@ -4912,7 +4965,7 @@ var index = createCommonjsModule(function (module) {
 			return false;
 		},
 
-		getParameter: function getParameter(point, optionalTarget) {
+		getParameter: function (point, optionalTarget) {
 
 			// This can potentially have a divide by zero if the box
 			// has a size dimension of 0.
@@ -4922,7 +4975,7 @@ var index = createCommonjsModule(function (module) {
 			return result.set((point.x - this.min.x) / (this.max.x - this.min.x), (point.y - this.min.y) / (this.max.y - this.min.y), (point.z - this.min.z) / (this.max.z - this.min.z));
 		},
 
-		intersectsBox: function intersectsBox(box) {
+		intersectsBox: function (box) {
 
 			// using 6 splitting planes to rule out intersections.
 
@@ -4950,7 +5003,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		intersectsPlane: function intersectsPlane(plane) {
+		intersectsPlane: function (plane) {
 
 			// We compute the minimum and maximum dot product values. If those values
 			// are on the same side (back or front) of the plane, then there is no intersection.
@@ -4990,7 +5043,7 @@ var index = createCommonjsModule(function (module) {
 			return min <= plane.constant && max >= plane.constant;
 		},
 
-		clampPoint: function clampPoint(point, optionalTarget) {
+		clampPoint: function (point, optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			return result.copy(point).clamp(this.min, this.max);
@@ -5022,7 +5075,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		intersect: function intersect(box) {
+		intersect: function (box) {
 
 			this.min.max(box.min);
 			this.max.min(box.max);
@@ -5030,7 +5083,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		union: function union(box) {
+		union: function (box) {
 
 			this.min.min(box.min);
 			this.max.max(box.max);
@@ -5061,7 +5114,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		translate: function translate(offset) {
+		translate: function (offset) {
 
 			this.min.add(offset);
 			this.max.add(offset);
@@ -5069,7 +5122,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		equals: function equals(box) {
+		equals: function (box) {
 
 			return box.min.equals(this.min) && box.max.equals(this.max);
 		}
@@ -5144,7 +5197,7 @@ var index = createCommonjsModule(function (module) {
 			this.onChangeCallback();
 		},
 
-		set: function set(x, y, z, order) {
+		set: function (x, y, z, order) {
 
 			this._x = x;
 			this._y = y;
@@ -5156,12 +5209,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor(this._x, this._y, this._z, this._order);
 		},
 
-		copy: function copy(euler) {
+		copy: function (euler) {
 
 			this._x = euler._x;
 			this._y = euler._y;
@@ -5173,7 +5226,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromRotationMatrix: function setFromRotationMatrix(m, order, update) {
+		setFromRotationMatrix: function (m, order, update) {
 
 			var clamp = THREE.Math.clamp;
 
@@ -5270,7 +5323,10 @@ var index = createCommonjsModule(function (module) {
 					this._x = Math.atan2(-m23, m33);
 					this._y = 0;
 				}
-			} else {}
+			} else {
+
+				console.warn('THREE.Euler: .setFromRotationMatrix() given unsupported order: ' + order);
+			}
 
 			this._order = order;
 
@@ -5293,7 +5349,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		setFromVector3: function setFromVector3(v, order) {
+		setFromVector3: function (v, order) {
 
 			return this.set(v.x, v.y, v.z, order || this._order);
 		},
@@ -5311,12 +5367,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		equals: function equals(euler) {
+		equals: function (euler) {
 
 			return euler._x === this._x && euler._y === this._y && euler._z === this._z && euler._order === this._order;
 		},
 
-		fromArray: function fromArray(array) {
+		fromArray: function (array) {
 
 			this._x = array[0];
 			this._y = array[1];
@@ -5328,7 +5384,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toArray: function toArray(array, offset) {
+		toArray: function (array, offset) {
 
 			if (array === undefined) array = [];
 			if (offset === undefined) offset = 0;
@@ -5341,7 +5397,7 @@ var index = createCommonjsModule(function (module) {
 			return array;
 		},
 
-		toVector3: function toVector3(optionalResult) {
+		toVector3: function (optionalResult) {
 
 			if (optionalResult) {
 
@@ -5352,14 +5408,14 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		onChange: function onChange(callback) {
+		onChange: function (callback) {
 
 			this.onChangeCallback = callback;
 
 			return this;
 		},
 
-		onChangeCallback: function onChangeCallback() {}
+		onChangeCallback: function () {}
 
 	};
 
@@ -5379,7 +5435,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Ray,
 
-		set: function set(origin, direction) {
+		set: function (origin, direction) {
 
 			this.origin.copy(origin);
 			this.direction.copy(direction);
@@ -5387,12 +5443,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(ray) {
+		copy: function (ray) {
 
 			this.origin.copy(ray.origin);
 			this.direction.copy(ray.direction);
@@ -5400,14 +5456,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		at: function at(t, optionalTarget) {
+		at: function (t, optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 
 			return result.copy(this.direction).multiplyScalar(t).add(this.origin);
 		},
 
-		lookAt: function lookAt(v) {
+		lookAt: function (v) {
 
 			this.direction.copy(v).sub(this.origin).normalize();
 		},
@@ -5424,7 +5480,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		closestPointToPoint: function closestPointToPoint(point, optionalTarget) {
+		closestPointToPoint: function (point, optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 			result.subVectors(point, this.origin);
@@ -5438,7 +5494,7 @@ var index = createCommonjsModule(function (module) {
 			return result.copy(this.direction).multiplyScalar(directionDistance).add(this.origin);
 		},
 
-		distanceToPoint: function distanceToPoint(point) {
+		distanceToPoint: function (point) {
 
 			return Math.sqrt(this.distanceSqToPoint(point));
 		},
@@ -5610,12 +5666,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		intersectsSphere: function intersectsSphere(sphere) {
+		intersectsSphere: function (sphere) {
 
 			return this.distanceToPoint(sphere.center) <= sphere.radius;
 		},
 
-		distanceToPlane: function distanceToPlane(plane) {
+		distanceToPlane: function (plane) {
 
 			var denominator = plane.normal.dot(this.direction);
 
@@ -5639,7 +5695,7 @@ var index = createCommonjsModule(function (module) {
 			return t >= 0 ? t : null;
 		},
 
-		intersectPlane: function intersectPlane(plane, optionalTarget) {
+		intersectPlane: function (plane, optionalTarget) {
 
 			var t = this.distanceToPlane(plane);
 
@@ -5651,7 +5707,7 @@ var index = createCommonjsModule(function (module) {
 			return this.at(t, optionalTarget);
 		},
 
-		intersectsPlane: function intersectsPlane(plane) {
+		intersectsPlane: function (plane) {
 
 			// check if the ray lies on the plane first
 
@@ -5674,7 +5730,7 @@ var index = createCommonjsModule(function (module) {
 			return false;
 		},
 
-		intersectBox: function intersectBox(box, optionalTarget) {
+		intersectBox: function (box, optionalTarget) {
 
 			var tmin, tmax, tymin, tymax, tzmin, tzmax;
 
@@ -5820,7 +5876,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		applyMatrix4: function applyMatrix4(matrix4) {
+		applyMatrix4: function (matrix4) {
 
 			this.direction.add(this.origin).applyMatrix4(matrix4);
 			this.origin.applyMatrix4(matrix4);
@@ -5830,7 +5886,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		equals: function equals(ray) {
+		equals: function (ray) {
 
 			return ray.origin.equals(this.origin) && ray.direction.equals(this.direction);
 		}
@@ -5854,7 +5910,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Sphere,
 
-		set: function set(center, radius) {
+		set: function (center, radius) {
 
 			this.center.copy(center);
 			this.radius = radius;
@@ -5891,12 +5947,12 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(sphere) {
+		copy: function (sphere) {
 
 			this.center.copy(sphere.center);
 			this.radius = sphere.radius;
@@ -5904,34 +5960,34 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		empty: function empty() {
+		empty: function () {
 
 			return this.radius <= 0;
 		},
 
-		containsPoint: function containsPoint(point) {
+		containsPoint: function (point) {
 
 			return point.distanceToSquared(this.center) <= this.radius * this.radius;
 		},
 
-		distanceToPoint: function distanceToPoint(point) {
+		distanceToPoint: function (point) {
 
 			return point.distanceTo(this.center) - this.radius;
 		},
 
-		intersectsSphere: function intersectsSphere(sphere) {
+		intersectsSphere: function (sphere) {
 
 			var radiusSum = this.radius + sphere.radius;
 
 			return sphere.center.distanceToSquared(this.center) <= radiusSum * radiusSum;
 		},
 
-		intersectsBox: function intersectsBox(box) {
+		intersectsBox: function (box) {
 
 			return box.intersectsSphere(this);
 		},
 
-		intersectsPlane: function intersectsPlane(plane) {
+		intersectsPlane: function (plane) {
 
 			// We use the following equation to compute the signed distance from
 			// the center of the sphere to the plane.
@@ -5944,7 +6000,7 @@ var index = createCommonjsModule(function (module) {
 			return Math.abs(this.center.dot(plane.normal) - plane.constant) <= this.radius;
 		},
 
-		clampPoint: function clampPoint(point, optionalTarget) {
+		clampPoint: function (point, optionalTarget) {
 
 			var deltaLengthSq = this.center.distanceToSquared(point);
 
@@ -5961,7 +6017,7 @@ var index = createCommonjsModule(function (module) {
 			return result;
 		},
 
-		getBoundingBox: function getBoundingBox(optionalTarget) {
+		getBoundingBox: function (optionalTarget) {
 
 			var box = optionalTarget || new THREE.Box3();
 
@@ -5971,7 +6027,7 @@ var index = createCommonjsModule(function (module) {
 			return box;
 		},
 
-		applyMatrix4: function applyMatrix4(matrix) {
+		applyMatrix4: function (matrix) {
 
 			this.center.applyMatrix4(matrix);
 			this.radius = this.radius * matrix.getMaxScaleOnAxis();
@@ -5979,14 +6035,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		translate: function translate(offset) {
+		translate: function (offset) {
 
 			this.center.add(offset);
 
 			return this;
 		},
 
-		equals: function equals(sphere) {
+		equals: function (sphere) {
 
 			return sphere.center.equals(this.center) && sphere.radius === this.radius;
 		}
@@ -6010,7 +6066,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Frustum,
 
-		set: function set(p0, p1, p2, p3, p4, p5) {
+		set: function (p0, p1, p2, p3, p4, p5) {
 
 			var planes = this.planes;
 
@@ -6024,12 +6080,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(frustum) {
+		copy: function (frustum) {
 
 			var planes = this.planes;
 
@@ -6041,7 +6097,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setFromMatrix: function setFromMatrix(m) {
+		setFromMatrix: function (m) {
 
 			var planes = this.planes;
 			var me = m.elements;
@@ -6089,7 +6145,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		intersectsSphere: function intersectsSphere(sphere) {
+		intersectsSphere: function (sphere) {
 
 			var planes = this.planes;
 			var center = sphere.center;
@@ -6143,7 +6199,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		containsPoint: function containsPoint(point) {
+		containsPoint: function (point) {
 
 			var planes = this.planes;
 
@@ -6172,7 +6228,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.EventDispatcher,
 
-		apply: function apply(object) {
+		apply: function (object) {
 
 			object.addEventListener = THREE.EventDispatcher.prototype.addEventListener;
 			object.hasEventListener = THREE.EventDispatcher.prototype.hasEventListener;
@@ -6180,7 +6236,7 @@ var index = createCommonjsModule(function (module) {
 			object.dispatchEvent = THREE.EventDispatcher.prototype.dispatchEvent;
 		},
 
-		addEventListener: function addEventListener(type, listener) {
+		addEventListener: function (type, listener) {
 
 			if (this._listeners === undefined) this._listeners = {};
 
@@ -6197,7 +6253,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		hasEventListener: function hasEventListener(type, listener) {
+		hasEventListener: function (type, listener) {
 
 			if (this._listeners === undefined) return false;
 
@@ -6211,7 +6267,7 @@ var index = createCommonjsModule(function (module) {
 			return false;
 		},
 
-		removeEventListener: function removeEventListener(type, listener) {
+		removeEventListener: function (type, listener) {
 
 			if (this._listeners === undefined) return;
 
@@ -6229,7 +6285,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		dispatchEvent: function dispatchEvent(event) {
+		dispatchEvent: function (event) {
 
 			if (this._listeners === undefined) return;
 
@@ -6272,27 +6328,27 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Layers,
 
-		set: function set(channel) {
+		set: function (channel) {
 
 			this.mask = 1 << channel;
 		},
 
-		enable: function enable(channel) {
+		enable: function (channel) {
 
 			this.mask |= 1 << channel;
 		},
 
-		toggle: function toggle(channel) {
+		toggle: function (channel) {
 
 			this.mask ^= 1 << channel;
 		},
 
-		disable: function disable(channel) {
+		disable: function (channel) {
 
 			this.mask &= ~(1 << channel);
 		},
 
-		test: function test(layers) {
+		test: function (layers) {
 
 			return (this.mask & layers.mask) !== 0;
 		}
@@ -6393,33 +6449,33 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Object3D,
 
-		applyMatrix: function applyMatrix(matrix) {
+		applyMatrix: function (matrix) {
 
 			this.matrix.multiplyMatrices(matrix, this.matrix);
 
 			this.matrix.decompose(this.position, this.quaternion, this.scale);
 		},
 
-		setRotationFromAxisAngle: function setRotationFromAxisAngle(axis, angle) {
+		setRotationFromAxisAngle: function (axis, angle) {
 
 			// assumes axis is normalized
 
 			this.quaternion.setFromAxisAngle(axis, angle);
 		},
 
-		setRotationFromEuler: function setRotationFromEuler(euler) {
+		setRotationFromEuler: function (euler) {
 
 			this.quaternion.setFromEuler(euler, true);
 		},
 
-		setRotationFromMatrix: function setRotationFromMatrix(m) {
+		setRotationFromMatrix: function (m) {
 
 			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
 			this.quaternion.setFromRotationMatrix(m);
 		},
 
-		setRotationFromQuaternion: function setRotationFromQuaternion(q) {
+		setRotationFromQuaternion: function (q) {
 
 			// assumes q is normalized
 
@@ -6520,7 +6576,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		localToWorld: function localToWorld(vector) {
+		localToWorld: function (vector) {
 
 			return vector.applyMatrix4(this.matrixWorld);
 		},
@@ -6549,7 +6605,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		add: function add(object) {
+		add: function (object) {
 
 			if (arguments.length > 1) {
 
@@ -6562,6 +6618,8 @@ var index = createCommonjsModule(function (module) {
 			}
 
 			if (object === this) {
+
+				console.error("THREE.Object3D.add: object can't be added as a child of itself.", object);
 				return this;
 			}
 
@@ -6576,12 +6634,15 @@ var index = createCommonjsModule(function (module) {
 				object.dispatchEvent({ type: 'added' });
 
 				this.children.push(object);
-			} else {}
+			} else {
+
+				console.error("THREE.Object3D.add: object not an instance of THREE.Object3D.", object);
+			}
 
 			return this;
 		},
 
-		remove: function remove(object) {
+		remove: function (object) {
 
 			if (arguments.length > 1) {
 
@@ -6603,17 +6664,17 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		getObjectById: function getObjectById(id) {
+		getObjectById: function (id) {
 
 			return this.getObjectByProperty('id', id);
 		},
 
-		getObjectByName: function getObjectByName(name) {
+		getObjectByName: function (name) {
 
 			return this.getObjectByProperty('name', name);
 		},
 
-		getObjectByProperty: function getObjectByProperty(name, value) {
+		getObjectByProperty: function (name, value) {
 
 			if (this[name] === value) return this;
 
@@ -6631,7 +6692,7 @@ var index = createCommonjsModule(function (module) {
 			return undefined;
 		},
 
-		getWorldPosition: function getWorldPosition(optionalTarget) {
+		getWorldPosition: function (optionalTarget) {
 
 			var result = optionalTarget || new THREE.Vector3();
 
@@ -6702,9 +6763,9 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		raycast: function raycast() {},
+		raycast: function () {},
 
-		traverse: function traverse(callback) {
+		traverse: function (callback) {
 
 			callback(this);
 
@@ -6716,7 +6777,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		traverseVisible: function traverseVisible(callback) {
+		traverseVisible: function (callback) {
 
 			if (this.visible === false) return;
 
@@ -6730,7 +6791,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		traverseAncestors: function traverseAncestors(callback) {
+		traverseAncestors: function (callback) {
 
 			var parent = this.parent;
 
@@ -6742,14 +6803,14 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		updateMatrix: function updateMatrix() {
+		updateMatrix: function () {
 
 			this.matrix.compose(this.position, this.quaternion, this.scale);
 
 			this.matrixWorldNeedsUpdate = true;
 		},
 
-		updateMatrixWorld: function updateMatrixWorld(force) {
+		updateMatrixWorld: function (force) {
 
 			if (this.matrixAutoUpdate === true) this.updateMatrix();
 
@@ -6776,7 +6837,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		toJSON: function toJSON(meta) {
+		toJSON: function (meta) {
 
 			var isRootObject = meta === undefined;
 
@@ -6884,12 +6945,12 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		clone: function clone(recursive) {
+		clone: function (recursive) {
 
 			return new this.constructor().copy(this, recursive);
 		},
 
-		copy: function copy(source, recursive) {
+		copy: function (source, recursive) {
 
 			if (recursive === undefined) recursive = true;
 
@@ -6963,12 +7024,12 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Face3,
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.a = source.a;
 			this.b = source.b;
@@ -7027,14 +7088,14 @@ var index = createCommonjsModule(function (module) {
 			if (value === true) this.version++;
 		},
 
-		setDynamic: function setDynamic(value) {
+		setDynamic: function (value) {
 
 			this.dynamic = value;
 
 			return this;
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.array = new source.array.constructor(source.array);
 			this.itemSize = source.itemSize;
@@ -7044,7 +7105,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyAt: function copyAt(index1, attribute, index2) {
+		copyAt: function (index1, attribute, index2) {
 
 			index1 *= this.itemSize;
 			index2 *= attribute.itemSize;
@@ -7057,14 +7118,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyArray: function copyArray(array) {
+		copyArray: function (array) {
 
 			this.array.set(array);
 
 			return this;
 		},
 
-		copyColorsArray: function copyColorsArray(colors) {
+		copyColorsArray: function (colors) {
 
 			var array = this.array,
 			    offset = 0;
@@ -7074,6 +7135,8 @@ var index = createCommonjsModule(function (module) {
 				var color = colors[i];
 
 				if (color === undefined) {
+
+					console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', i);
 					color = new THREE.Color();
 				}
 
@@ -7085,7 +7148,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyIndicesArray: function copyIndicesArray(indices) {
+		copyIndicesArray: function (indices) {
 
 			var array = this.array,
 			    offset = 0;
@@ -7102,7 +7165,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyVector2sArray: function copyVector2sArray(vectors) {
+		copyVector2sArray: function (vectors) {
 
 			var array = this.array,
 			    offset = 0;
@@ -7112,6 +7175,8 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
+
+					console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i);
 					vector = new THREE.Vector2();
 				}
 
@@ -7122,7 +7187,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyVector3sArray: function copyVector3sArray(vectors) {
+		copyVector3sArray: function (vectors) {
 
 			var array = this.array,
 			    offset = 0;
@@ -7132,6 +7197,8 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
+
+					console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i);
 					vector = new THREE.Vector3();
 				}
 
@@ -7143,7 +7210,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		copyVector4sArray: function copyVector4sArray(vectors) {
+		copyVector4sArray: function (vectors) {
 
 			var array = this.array,
 			    offset = 0;
@@ -7153,6 +7220,8 @@ var index = createCommonjsModule(function (module) {
 				var vector = vectors[i];
 
 				if (vector === undefined) {
+
+					console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', i);
 					vector = new THREE.Vector4();
 				}
 
@@ -7165,7 +7234,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		set: function set(value, offset) {
+		set: function (value, offset) {
 
 			if (offset === undefined) offset = 0;
 
@@ -7174,55 +7243,55 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		getX: function getX(index) {
+		getX: function (index) {
 
 			return this.array[index * this.itemSize];
 		},
 
-		setX: function setX(index, x) {
+		setX: function (index, x) {
 
 			this.array[index * this.itemSize] = x;
 
 			return this;
 		},
 
-		getY: function getY(index) {
+		getY: function (index) {
 
 			return this.array[index * this.itemSize + 1];
 		},
 
-		setY: function setY(index, y) {
+		setY: function (index, y) {
 
 			this.array[index * this.itemSize + 1] = y;
 
 			return this;
 		},
 
-		getZ: function getZ(index) {
+		getZ: function (index) {
 
 			return this.array[index * this.itemSize + 2];
 		},
 
-		setZ: function setZ(index, z) {
+		setZ: function (index, z) {
 
 			this.array[index * this.itemSize + 2] = z;
 
 			return this;
 		},
 
-		getW: function getW(index) {
+		getW: function (index) {
 
 			return this.array[index * this.itemSize + 3];
 		},
 
-		setW: function setW(index, w) {
+		setW: function (index, w) {
 
 			this.array[index * this.itemSize + 3] = w;
 
 			return this;
 		},
 
-		setXY: function setXY(index, x, y) {
+		setXY: function (index, x, y) {
 
 			index *= this.itemSize;
 
@@ -7232,7 +7301,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setXYZ: function setXYZ(index, x, y, z) {
+		setXYZ: function (index, x, y, z) {
 
 			index *= this.itemSize;
 
@@ -7243,7 +7312,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setXYZW: function setXYZW(index, x, y, z, w) {
+		setXYZW: function (index, x, y, z, w) {
 
 			index *= this.itemSize;
 
@@ -7255,7 +7324,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		}
@@ -7312,6 +7381,8 @@ var index = createCommonjsModule(function (module) {
 	// Deprecated
 
 	THREE.DynamicBufferAttribute = function (array, itemSize) {
+
+		console.warn('THREE.DynamicBufferAttribute has been removed. Use new THREE.BufferAttribute().setDynamic( true ) instead.');
 		return new THREE.BufferAttribute(array, itemSize).setDynamic(true);
 	};
 
@@ -7373,19 +7444,21 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.BufferGeometry,
 
-		getIndex: function getIndex() {
+		getIndex: function () {
 
 			return this.index;
 		},
 
-		setIndex: function setIndex(index) {
+		setIndex: function (index) {
 
 			this.index = index;
 		},
 
-		addAttribute: function addAttribute(name, attribute) {
+		addAttribute: function (name, attribute) {
 
 			if (attribute instanceof THREE.BufferAttribute === false && attribute instanceof THREE.InterleavedBufferAttribute === false) {
+
+				console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).');
 
 				this.addAttribute(name, new THREE.BufferAttribute(arguments[1], arguments[2]));
 
@@ -7393,6 +7466,8 @@ var index = createCommonjsModule(function (module) {
 			}
 
 			if (name === 'index') {
+
+				console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.');
 				this.setIndex(attribute);
 
 				return;
@@ -7403,19 +7478,19 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		getAttribute: function getAttribute(name) {
+		getAttribute: function (name) {
 
 			return this.attributes[name];
 		},
 
-		removeAttribute: function removeAttribute(name) {
+		removeAttribute: function (name) {
 
 			delete this.attributes[name];
 
 			return this;
 		},
 
-		addGroup: function addGroup(start, count, materialIndex) {
+		addGroup: function (start, count, materialIndex) {
 
 			this.groups.push({
 
@@ -7426,18 +7501,18 @@ var index = createCommonjsModule(function (module) {
 			});
 		},
 
-		clearGroups: function clearGroups() {
+		clearGroups: function () {
 
 			this.groups = [];
 		},
 
-		setDrawRange: function setDrawRange(start, count) {
+		setDrawRange: function (start, count) {
 
 			this.drawRange.start = start;
 			this.drawRange.count = count;
 		},
 
-		applyMatrix: function applyMatrix(matrix) {
+		applyMatrix: function (matrix) {
 
 			var position = this.attributes.position;
 
@@ -7576,7 +7651,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		center: function center() {
+		center: function () {
 
 			this.computeBoundingBox();
 
@@ -7587,7 +7662,7 @@ var index = createCommonjsModule(function (module) {
 			return offset;
 		},
 
-		setFromObject: function setFromObject(object) {
+		setFromObject: function (object) {
 
 			// console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
 
@@ -7628,7 +7703,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		updateFromObject: function updateFromObject(object) {
+		updateFromObject: function (object) {
 
 			var geometry = object.geometry;
 
@@ -7732,14 +7807,14 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		fromGeometry: function fromGeometry(geometry) {
+		fromGeometry: function (geometry) {
 
 			geometry.__directGeometry = new THREE.DirectGeometry().fromGeometry(geometry);
 
 			return this.fromDirectGeometry(geometry.__directGeometry);
 		},
 
-		fromDirectGeometry: function fromDirectGeometry(geometry) {
+		fromDirectGeometry: function (geometry) {
 
 			var positions = new Float32Array(geometry.vertices.length * 3);
 			this.addAttribute('position', new THREE.BufferAttribute(positions, 3).copyVector3sArray(geometry.vertices));
@@ -7851,7 +7926,10 @@ var index = createCommonjsModule(function (module) {
 					this.boundingBox.max.set(0, 0, 0);
 				}
 
-				if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) {}
+				if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) {
+
+					console.error('THREE.BufferGeometry.computeBoundingBox: Computed min/max have NaN values. The "position" attribute is likely to have NaN values.', this);
+				}
 			};
 		}(),
 
@@ -7889,18 +7967,21 @@ var index = createCommonjsModule(function (module) {
 
 					this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
 
-					if (isNaN(this.boundingSphere.radius)) {}
+					if (isNaN(this.boundingSphere.radius)) {
+
+						console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this);
+					}
 				}
 			};
 		}(),
 
-		computeFaceNormals: function computeFaceNormals() {
+		computeFaceNormals: function () {
 
 			// backwards compatibility
 
 		},
 
-		computeVertexNormals: function computeVertexNormals() {
+		computeVertexNormals: function () {
 
 			var index = this.index;
 			var attributes = this.attributes;
@@ -8015,9 +8096,11 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		merge: function merge(geometry, offset) {
+		merge: function (geometry, offset) {
 
 			if (geometry instanceof THREE.BufferGeometry === false) {
+
+				console.error('THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry);
 				return;
 			}
 
@@ -8046,7 +8129,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		normalizeNormals: function normalizeNormals() {
+		normalizeNormals: function () {
 
 			var normals = this.attributes.normal.array;
 
@@ -8066,9 +8149,11 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		toNonIndexed: function toNonIndexed() {
+		toNonIndexed: function () {
 
 			if (this.index === null) {
+
+				console.warn('THREE.BufferGeometry.toNonIndexed(): Geometry is already non-indexed.');
 				return this;
 			}
 
@@ -8105,7 +8190,7 @@ var index = createCommonjsModule(function (module) {
 			return geometry2;
 		},
 
-		toJSON: function toJSON() {
+		toJSON: function () {
 
 			var data = {
 				metadata: {
@@ -8182,7 +8267,7 @@ var index = createCommonjsModule(function (module) {
 			return data;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			/*
    // Handle primitives
@@ -8202,7 +8287,7 @@ var index = createCommonjsModule(function (module) {
 			return new THREE.BufferGeometry().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			var index = source.index;
 
@@ -8230,7 +8315,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		}
@@ -8261,6 +8346,8 @@ var index = createCommonjsModule(function (module) {
 		constructor: THREE.InterleavedBufferAttribute,
 
 		get length() {
+
+			console.warn('THREE.BufferAttribute: .length has been deprecated. Please use .count.');
 			return this.array.length;
 		},
 
@@ -8269,55 +8356,55 @@ var index = createCommonjsModule(function (module) {
 			return this.data.count;
 		},
 
-		setX: function setX(index, x) {
+		setX: function (index, x) {
 
 			this.data.array[index * this.data.stride + this.offset] = x;
 
 			return this;
 		},
 
-		setY: function setY(index, y) {
+		setY: function (index, y) {
 
 			this.data.array[index * this.data.stride + this.offset + 1] = y;
 
 			return this;
 		},
 
-		setZ: function setZ(index, z) {
+		setZ: function (index, z) {
 
 			this.data.array[index * this.data.stride + this.offset + 2] = z;
 
 			return this;
 		},
 
-		setW: function setW(index, w) {
+		setW: function (index, w) {
 
 			this.data.array[index * this.data.stride + this.offset + 3] = w;
 
 			return this;
 		},
 
-		getX: function getX(index) {
+		getX: function (index) {
 
 			return this.data.array[index * this.data.stride + this.offset];
 		},
 
-		getY: function getY(index) {
+		getY: function (index) {
 
 			return this.data.array[index * this.data.stride + this.offset + 1];
 		},
 
-		getZ: function getZ(index) {
+		getZ: function (index) {
 
 			return this.data.array[index * this.data.stride + this.offset + 2];
 		},
 
-		getW: function getW(index) {
+		getW: function (index) {
 
 			return this.data.array[index * this.data.stride + this.offset + 3];
 		},
 
-		setXY: function setXY(index, x, y) {
+		setXY: function (index, x, y) {
 
 			index = index * this.data.stride + this.offset;
 
@@ -8327,7 +8414,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setXYZ: function setXYZ(index, x, y, z) {
+		setXYZ: function (index, x, y, z) {
 
 			index = index * this.data.stride + this.offset;
 
@@ -8338,7 +8425,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		setXYZW: function setXYZW(index, x, y, z, w) {
+		setXYZW: function (index, x, y, z, w) {
 
 			index = index * this.data.stride + this.offset;
 
@@ -8461,7 +8548,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.Geometry,
 
-		applyMatrix: function applyMatrix(matrix) {
+		applyMatrix: function (matrix) {
 
 			var normalMatrix = new THREE.Matrix3().getNormalMatrix(matrix);
 
@@ -8604,7 +8691,7 @@ var index = createCommonjsModule(function (module) {
 			};
 		}(),
 
-		fromBufferGeometry: function fromBufferGeometry(geometry) {
+		fromBufferGeometry: function (geometry) {
 
 			var scope = this;
 
@@ -8716,7 +8803,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		center: function center() {
+		center: function () {
 
 			this.computeBoundingBox();
 
@@ -8727,7 +8814,7 @@ var index = createCommonjsModule(function (module) {
 			return offset;
 		},
 
-		normalize: function normalize() {
+		normalize: function () {
 
 			this.computeBoundingSphere();
 
@@ -8744,7 +8831,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		computeFaceNormals: function computeFaceNormals() {
+		computeFaceNormals: function () {
 
 			var cb = new THREE.Vector3(),
 			    ab = new THREE.Vector3();
@@ -8767,7 +8854,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		computeVertexNormals: function computeVertexNormals(areaWeighted) {
+		computeVertexNormals: function (areaWeighted) {
 
 			if (areaWeighted === undefined) areaWeighted = true;
 
@@ -8847,7 +8934,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		computeMorphNormals: function computeMorphNormals() {
+		computeMorphNormals: function () {
 
 			var i, il, f, fl, face;
 
@@ -8952,9 +9039,12 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		computeTangents: function computeTangents() {},
+		computeTangents: function () {
 
-		computeLineDistances: function computeLineDistances() {
+			console.warn('THREE.Geometry: .computeTangents() has been removed.');
+		},
+
+		computeLineDistances: function () {
 
 			var d = 0;
 			var vertices = this.vertices;
@@ -8970,7 +9060,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		computeBoundingBox: function computeBoundingBox() {
+		computeBoundingBox: function () {
 
 			if (this.boundingBox === null) {
 
@@ -8980,7 +9070,7 @@ var index = createCommonjsModule(function (module) {
 			this.boundingBox.setFromPoints(this.vertices);
 		},
 
-		computeBoundingSphere: function computeBoundingSphere() {
+		computeBoundingSphere: function () {
 
 			if (this.boundingSphere === null) {
 
@@ -8990,9 +9080,11 @@ var index = createCommonjsModule(function (module) {
 			this.boundingSphere.setFromPoints(this.vertices);
 		},
 
-		merge: function merge(geometry, matrix, materialIndexOffset) {
+		merge: function (geometry, matrix, materialIndexOffset) {
 
 			if (geometry instanceof THREE.Geometry === false) {
+
+				console.error('THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry);
 				return;
 			}
 
@@ -9090,9 +9182,11 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		mergeMesh: function mergeMesh(mesh) {
+		mergeMesh: function (mesh) {
 
 			if (mesh instanceof THREE.Mesh === false) {
+
+				console.error('THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh);
 				return;
 			}
 
@@ -9107,7 +9201,7 @@ var index = createCommonjsModule(function (module) {
    * and faces' vertices are updated.
    */
 
-		mergeVertices: function mergeVertices() {
+		mergeVertices: function () {
 
 			var verticesMap = {}; // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
 			var unique = [],
@@ -9150,15 +9244,11 @@ var index = createCommonjsModule(function (module) {
 
 				indices = [face.a, face.b, face.c];
 
-				var dupIndex = -1;
-
 				// if any duplicate vertices are found in a Face3
 				// we have to remove the face as nothing can be saved
 				for (var n = 0; n < 3; n++) {
 
 					if (indices[n] === indices[(n + 1) % 3]) {
-
-						dupIndex = n;
 						faceIndicesToRemove.push(i);
 						break;
 					}
@@ -9184,7 +9274,7 @@ var index = createCommonjsModule(function (module) {
 			return diff;
 		},
 
-		sortFacesByMaterialIndex: function sortFacesByMaterialIndex() {
+		sortFacesByMaterialIndex: function () {
 
 			var faces = this.faces;
 			var length = faces.length;
@@ -9227,7 +9317,7 @@ var index = createCommonjsModule(function (module) {
 			if (newUvs2) this.faceVertexUvs[1] = newUvs2;
 		},
 
-		toJSON: function toJSON() {
+		toJSON: function () {
 
 			var data = {
 				metadata: {
@@ -9391,7 +9481,7 @@ var index = createCommonjsModule(function (module) {
 			return data;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			/*
    // Handle primitives
@@ -9411,7 +9501,7 @@ var index = createCommonjsModule(function (module) {
 			return new THREE.Geometry().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.vertices = [];
 			this.faces = [];
@@ -9459,7 +9549,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		}
@@ -9520,11 +9610,17 @@ var index = createCommonjsModule(function (module) {
 		computeBoundingBox: THREE.Geometry.prototype.computeBoundingBox,
 		computeBoundingSphere: THREE.Geometry.prototype.computeBoundingSphere,
 
-		computeFaceNormals: function computeFaceNormals() {},
+		computeFaceNormals: function () {
 
-		computeVertexNormals: function computeVertexNormals() {},
+			console.warn('THREE.DirectGeometry: computeFaceNormals() is not a method of this type of geometry.');
+		},
 
-		computeGroups: function computeGroups(geometry) {
+		computeVertexNormals: function () {
+
+			console.warn('THREE.DirectGeometry: computeVertexNormals() is not a method of this type of geometry.');
+		},
+
+		computeGroups: function (geometry) {
 
 			var group;
 			var groups = [];
@@ -9564,7 +9660,7 @@ var index = createCommonjsModule(function (module) {
 			this.groups = groups;
 		},
 
-		fromGeometry: function fromGeometry(geometry) {
+		fromGeometry: function (geometry) {
 
 			var faces = geometry.faces;
 			var vertices = geometry.vertices;
@@ -9658,6 +9754,8 @@ var index = createCommonjsModule(function (module) {
 						this.uvs.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 					} else {
 
+						console.warn('THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i);
+
 						this.uvs.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 					}
 				}
@@ -9670,6 +9768,8 @@ var index = createCommonjsModule(function (module) {
 
 						this.uvs2.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 					} else {
+
+						console.warn('THREE.DirectGeometry.fromGeometry(): Undefined vertexUv2 ', i);
 
 						this.uvs2.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 					}
@@ -9715,7 +9815,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		}
@@ -10246,7 +10346,7 @@ var index = createCommonjsModule(function (module) {
 			this._needsUpdate = value;
 		},
 
-		setValues: function setValues(values) {
+		setValues: function (values) {
 
 			if (values === undefined) return;
 
@@ -10255,12 +10355,16 @@ var index = createCommonjsModule(function (module) {
 				var newValue = values[key];
 
 				if (newValue === undefined) {
+
+					console.warn("THREE.Material: '" + key + "' parameter is undefined.");
 					continue;
 				}
 
 				var currentValue = this[key];
 
 				if (currentValue === undefined) {
+
+					console.warn("THREE." + this.type + ": '" + key + "' is not a property of this material.");
 					continue;
 				}
 
@@ -10281,7 +10385,7 @@ var index = createCommonjsModule(function (module) {
 			}
 		},
 
-		toJSON: function toJSON(meta) {
+		toJSON: function (meta) {
 
 			var isRoot = meta === undefined;
 
@@ -10389,12 +10493,12 @@ var index = createCommonjsModule(function (module) {
 			return data;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.name = source.name;
 
@@ -10435,12 +10539,12 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		update: function update() {
+		update: function () {
 
 			this.dispatchEvent({ type: 'update' });
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		}
@@ -10811,7 +10915,10 @@ var index = createCommonjsModule(function (module) {
 
 		if (parameters !== undefined) {
 
-			if (parameters.attributes !== undefined) {}
+			if (parameters.attributes !== undefined) {
+
+				console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.');
+			}
 
 			this.setValues(parameters);
 		}
@@ -11512,7 +11619,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.MultiMaterial,
 
-		toJSON: function toJSON(meta) {
+		toJSON: function (meta) {
 
 			var output = {
 				metadata: {
@@ -11540,7 +11647,7 @@ var index = createCommonjsModule(function (module) {
 			return output;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			var material = new this.constructor();
 
@@ -11636,12 +11743,12 @@ var index = createCommonjsModule(function (module) {
 			if (value === true) this.version++;
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.image = source.image;
 			this.mipmaps = source.mipmaps.slice(0);
@@ -11671,7 +11778,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		toJSON: function toJSON(meta) {
+		toJSON: function (meta) {
 
 			if (meta.textures[this.uuid] !== undefined) {
 
@@ -11751,12 +11858,12 @@ var index = createCommonjsModule(function (module) {
 			return output;
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		},
 
-		transformUv: function transformUv(uv) {
+		transformUv: function (uv) {
 
 			if (this.mapping !== THREE.UVMapping) return;
 
@@ -11901,12 +12008,12 @@ var index = createCommonjsModule(function (module) {
 
 	Object.defineProperty(THREE.CubeTexture.prototype, 'images', {
 
-		get: function get() {
+		get: function () {
 
 			return this.image;
 		},
 
-		set: function set(value) {
+		set: function (value) {
 
 			this.image = value;
 		}
@@ -12112,6 +12219,8 @@ var index = createCommonjsModule(function (module) {
 	THREE.Line = function (geometry, material, mode) {
 
 		if (mode === 1) {
+
+			console.warn('THREE.Line: parameter THREE.LinePieces no longer supported. Created THREE.LineSegments instead.');
 			return new THREE.LineSegments(geometry, material);
 		}
 
@@ -12345,6 +12454,8 @@ var index = createCommonjsModule(function (module) {
 
 			return this.morphTargetDictionary[name];
 		}
+
+		console.warn('THREE.Mesh.getMorphTargetIndexByName: morph target ' + name + ' does not exist. Returning 0.');
 
 		return 0;
 	};
@@ -12742,7 +12853,10 @@ var index = createCommonjsModule(function (module) {
 		} else if (this.bindMode === "detached") {
 
 			this.bindMatrixInverse.getInverse(this.bindMatrix);
-		} else {}
+		} else {
+
+			console.warn('THREE.SkinnedMesh unrecognized bindMode: ' + this.bindMode);
+		}
 	};
 
 	THREE.SkinnedMesh.prototype.clone = function () {
@@ -13127,7 +13241,7 @@ var index = createCommonjsModule(function (module) {
 
 	THREE.UniformsUtils = {
 
-		merge: function merge(uniforms) {
+		merge: function (uniforms) {
 
 			var merged = {};
 
@@ -13144,7 +13258,7 @@ var index = createCommonjsModule(function (module) {
 			return merged;
 		},
 
-		clone: function clone(uniforms_src) {
+		clone: function (uniforms_src) {
 
 			var uniforms_dst = {};
 
@@ -13385,8 +13499,8 @@ var index = createCommonjsModule(function (module) {
 				"emissive": { type: "c", value: new THREE.Color(0x000000) },
 				"roughness": { type: "f", value: 0.5 },
 				"metalness": { type: "f", value: 0 },
-				"envMapIntensity": { type: "f", value: 1 } // temporary
-			}]),
+				"envMapIntensity": { type: "f", value: 1 // temporary
+				} }]),
 
 			vertexShader: THREE.ShaderChunk['meshstandard_vert'],
 			fragmentShader: THREE.ShaderChunk['meshstandard_frag']
@@ -13521,6 +13635,8 @@ var index = createCommonjsModule(function (module) {
   */
 
 	THREE.WebGLRenderer = function (parameters) {
+
+		console.log('THREE.WebGLRenderer', THREE.REVISION);
 
 		parameters = parameters || {};
 
@@ -13720,7 +13836,10 @@ var index = createCommonjsModule(function (module) {
 			}
 
 			_canvas.addEventListener('webglcontextlost', onContextLost, false);
-		} catch (error) {}
+		} catch (error) {
+
+			console.error('THREE.WebGLRenderer: ' + error);
+		}
 
 		var extensions = new THREE.WebGLExtensions(_gl);
 
@@ -14359,6 +14478,8 @@ var index = createCommonjsModule(function (module) {
 				extension = extensions.get('ANGLE_instanced_arrays');
 
 				if (extension === null) {
+
+					console.error('THREE.WebGLRenderer.setupVertexAttributes: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 					return;
 				}
 			}
@@ -14500,6 +14621,8 @@ var index = createCommonjsModule(function (module) {
 		this.render = function (scene, camera, renderTarget, forceClear) {
 
 			if (camera instanceof THREE.Camera === false) {
+
+				console.error('THREE.WebGLRenderer.render: camera is not an instance of THREE.Camera.');
 				return;
 			}
 
@@ -15433,7 +15556,10 @@ var index = createCommonjsModule(function (module) {
 
 			var textureUnit = _usedTextureUnits;
 
-			if (textureUnit >= capabilities.maxTextures) {}
+			if (textureUnit >= capabilities.maxTextures) {
+
+				console.warn('WebGLRenderer: trying to use ' + textureUnit + ' texture units while this GPU supports only ' + capabilities.maxTextures);
+			}
 
 			_usedTextureUnits += 1;
 
@@ -15717,7 +15843,10 @@ var index = createCommonjsModule(function (module) {
 						_this.setTexture(texture, textureUnit);
 					}
 				}
-			} else {}
+			} else {
+
+				console.warn('THREE.WebGLRenderer: Unknown uniform type: ' + type);
+			}
 		}
 
 		function loadUniformsGeneric(uniforms) {
@@ -15941,12 +16070,18 @@ var index = createCommonjsModule(function (module) {
 				_gl.texParameteri(textureType, _gl.TEXTURE_WRAP_S, _gl.CLAMP_TO_EDGE);
 				_gl.texParameteri(textureType, _gl.TEXTURE_WRAP_T, _gl.CLAMP_TO_EDGE);
 
-				if (texture.wrapS !== THREE.ClampToEdgeWrapping || texture.wrapT !== THREE.ClampToEdgeWrapping) {}
+				if (texture.wrapS !== THREE.ClampToEdgeWrapping || texture.wrapT !== THREE.ClampToEdgeWrapping) {
+
+					console.warn('THREE.WebGLRenderer: Texture is not power of two. Texture.wrapS and Texture.wrapT should be set to THREE.ClampToEdgeWrapping.', texture);
+				}
 
 				_gl.texParameteri(textureType, _gl.TEXTURE_MAG_FILTER, filterFallback(texture.magFilter));
 				_gl.texParameteri(textureType, _gl.TEXTURE_MIN_FILTER, filterFallback(texture.minFilter));
 
-				if (texture.minFilter !== THREE.NearestFilter && texture.minFilter !== THREE.LinearFilter) {}
+				if (texture.minFilter !== THREE.NearestFilter && texture.minFilter !== THREE.LinearFilter) {
+
+					console.warn('THREE.WebGLRenderer: Texture is not power of two. Texture.minFilter should be set to THREE.NearestFilter or THREE.LinearFilter.', texture);
+				}
 			}
 
 			extension = extensions.get('EXT_texture_filter_anisotropic');
@@ -16030,7 +16165,10 @@ var index = createCommonjsModule(function (module) {
 						if (state.getCompressedTextureFormats().indexOf(glFormat) > -1) {
 
 							state.compressedTexImage2D(_gl.TEXTURE_2D, i, glFormat, mipmap.width, mipmap.height, 0, mipmap.data);
-						} else {}
+						} else {
+
+							console.warn("THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .uploadTexture()");
+						}
 					} else {
 
 						state.texImage2D(_gl.TEXTURE_2D, i, glFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
@@ -16075,10 +16213,14 @@ var index = createCommonjsModule(function (module) {
 				var image = texture.image;
 
 				if (image === undefined) {
+
+					console.warn('THREE.WebGLRenderer: Texture marked for update but image is undefined', texture);
 					return;
 				}
 
 				if (image.complete === false) {
+
+					console.warn('THREE.WebGLRenderer: Texture marked for update but image is incomplete', texture);
 					return;
 				}
 
@@ -16106,6 +16248,8 @@ var index = createCommonjsModule(function (module) {
 
 				var context = canvas.getContext('2d');
 				context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+
+				console.warn('THREE.WebGLRenderer: image is too big (' + image.width + 'x' + image.height + '). Resized to ' + canvas.width + 'x' + canvas.height, image);
 
 				return canvas;
 			}
@@ -16136,6 +16280,8 @@ var index = createCommonjsModule(function (module) {
 
 				var context = canvas.getContext('2d');
 				context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+				console.warn('THREE.WebGLRenderer: image is not power of two (' + image.width + 'x' + image.height + '). Resized to ' + canvas.width + 'x' + canvas.height, image);
 
 				return canvas;
 			}
@@ -16213,7 +16359,10 @@ var index = createCommonjsModule(function (module) {
 									if (state.getCompressedTextureFormats().indexOf(glFormat) > -1) {
 
 										state.compressedTexImage2D(_gl.TEXTURE_CUBE_MAP_POSITIVE_X + i, j, glFormat, mipmap.width, mipmap.height, 0, mipmap.data);
-									} else {}
+									} else {
+
+										console.warn("THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .setCubeTexture()");
+									}
 								} else {
 
 									state.texImage2D(_gl.TEXTURE_CUBE_MAP_POSITIVE_X + i, j, glFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
@@ -16432,6 +16581,8 @@ var index = createCommonjsModule(function (module) {
 		this.readRenderTargetPixels = function (renderTarget, x, y, width, height, buffer) {
 
 			if (renderTarget instanceof THREE.WebGLRenderTarget === false) {
+
+				console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.');
 				return;
 			}
 
@@ -16453,17 +16604,24 @@ var index = createCommonjsModule(function (module) {
 					var texture = renderTarget.texture;
 
 					if (texture.format !== THREE.RGBAFormat && paramThreeToGL(texture.format) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_FORMAT)) {
+
+						console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in RGBA or implementation defined format.');
 						return;
 					}
 
 					if (texture.type !== THREE.UnsignedByteType && paramThreeToGL(texture.type) !== _gl.getParameter(_gl.IMPLEMENTATION_COLOR_READ_TYPE) && !(texture.type === THREE.FloatType && extensions.get('WEBGL_color_buffer_float')) && !(texture.type === THREE.HalfFloatType && extensions.get('EXT_color_buffer_half_float'))) {
+
+						console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.');
 						return;
 					}
 
 					if (_gl.checkFramebufferStatus(_gl.FRAMEBUFFER) === _gl.FRAMEBUFFER_COMPLETE) {
 
 						_gl.readPixels(x, y, width, height, paramThreeToGL(texture.format), paramThreeToGL(texture.type), buffer);
-					} else {}
+					} else {
+
+						console.error('THREE.WebGLRenderer.readRenderTargetPixels: readPixels from renderTarget failed. Framebuffer not complete.');
+					}
 				} finally {
 
 					if (restore) {
@@ -16637,7 +16795,10 @@ var index = createCommonjsModule(function (module) {
 
 			}
 
-			if (extension === null) {}
+			if (extension === null) {
+
+				console.warn('THREE.WebGLRenderer: ' + name + ' extension not supported.');
+			}
 
 			extensions[name] = extension;
 
@@ -16693,6 +16854,8 @@ var index = createCommonjsModule(function (module) {
 		var _maxPrecision = getMaxPrecision(this.precision);
 
 		if (_maxPrecision !== this.precision) {
+
+			console.warn('THREE.WebGLRenderer:', this.precision, 'not supported, using', _maxPrecision, 'instead.');
 			this.precision = _maxPrecision;
 		}
 
@@ -17339,7 +17502,10 @@ var index = createCommonjsModule(function (module) {
 			try {
 
 				gl.compressedTexImage2D.apply(gl, arguments);
-			} catch (error) {}
+			} catch (error) {
+
+				console.error(error);
+			}
 		};
 
 		this.texImage2D = function () {
@@ -17347,7 +17513,10 @@ var index = createCommonjsModule(function (module) {
 			try {
 
 				gl.texImage2D.apply(gl, arguments);
-			} catch (error) {}
+			} catch (error) {
+
+				console.error(error);
+			}
 		};
 
 		// clear values
@@ -17587,6 +17756,8 @@ var index = createCommonjsModule(function (module) {
 			var extension = extensions.get('ANGLE_instanced_arrays');
 
 			if (extension === null) {
+
+				console.error('THREE.WebGLBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 				return;
 			}
 
@@ -17660,6 +17831,8 @@ var index = createCommonjsModule(function (module) {
 			var extension = extensions.get('ANGLE_instanced_arrays');
 
 			if (extension === null) {
+
+				console.error('THREE.WebGLBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.');
 				return;
 			}
 
@@ -17699,9 +17872,15 @@ var index = createCommonjsModule(function (module) {
 			gl.shaderSource(shader, string);
 			gl.compileShader(shader);
 
-			if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {}
+			if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {
 
-			if (gl.getShaderInfoLog(shader) !== '') {}
+				console.error('THREE.WebGLShader: Shader couldn\'t compile.');
+			}
+
+			if (gl.getShaderInfoLog(shader) !== '') {
+
+				console.warn('THREE.WebGLShader: gl.getShaderInfoLog()', type === gl.VERTEX_SHADER ? 'vertex' : 'fragment', gl.getShaderInfoLog(shader), addLineNumbers(string));
+			}
 
 			// --enable-privileged-webgl-extension
 			// console.log( type, gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
@@ -18705,7 +18884,10 @@ var index = createCommonjsModule(function (module) {
 				// Not using update ranges
 
 				gl.bufferSubData(bufferType, 0, data.array);
-			} else if (data.updateRange.count === 0) {} else {
+			} else if (data.updateRange.count === 0) {
+
+				console.error('THREE.WebGLObjects.updateBuffer: dynamic THREE.BufferAttribute marked as needsUpdate but updateRange.count is 0, ensure you are using set methods or updating manually.');
+			} else {
 
 				gl.bufferSubData(bufferType, data.updateRange.offset * data.array.BYTES_PER_ELEMENT, data.array.subarray(data.updateRange.offset, data.updateRange.offset + data.updateRange.count));
 
@@ -19212,7 +19394,12 @@ var index = createCommonjsModule(function (module) {
 			if (gl.getProgramParameter(program, gl.LINK_STATUS) === false) {
 
 				runnable = false;
-			} else if (programLog !== '') {} else if (vertexLog === '' || fragmentLog === '') {
+
+				console.error('THREE.WebGLProgram: shader error: ', gl.getError(), 'gl.VALIDATE_STATUS', gl.getProgramParameter(program, gl.VALIDATE_STATUS), 'gl.getProgramInfoLog', programLog, vertexLog, fragmentLog);
+			} else if (programLog !== '') {
+
+				console.warn('THREE.WebGLProgram: gl.getProgramInfoLog()', programLog);
+			} else if (vertexLog === '' || fragmentLog === '') {
 
 				haveDiagnostics = false;
 			}
@@ -19289,13 +19476,17 @@ var index = createCommonjsModule(function (module) {
 			Object.defineProperties(this, {
 
 				uniforms: {
-					get: function get() {
+					get: function () {
+
+						console.warn('THREE.WebGLProgram: .uniforms is now .getUniforms().');
 						return this.getUniforms();
 					}
 				},
 
 				attributes: {
-					get: function get() {
+					get: function () {
+
+						console.warn('THREE.WebGLProgram: .attributes is now .getAttributes().');
 						return this.getAttributes();
 					}
 				}
@@ -19354,7 +19545,7 @@ var index = createCommonjsModule(function (module) {
 
 		constructor: THREE.WebGLRenderTarget,
 
-		setSize: function setSize(width, height) {
+		setSize: function (width, height) {
 
 			if (this.width !== width || this.height !== height) {
 
@@ -19368,12 +19559,12 @@ var index = createCommonjsModule(function (module) {
 			this.scissor.set(0, 0, width, height);
 		},
 
-		clone: function clone() {
+		clone: function () {
 
 			return new this.constructor().copy(this);
 		},
 
-		copy: function copy(source) {
+		copy: function (source) {
 
 			this.width = source.width;
 			this.height = source.height;
@@ -19388,7 +19579,7 @@ var index = createCommonjsModule(function (module) {
 			return this;
 		},
 
-		dispose: function dispose() {
+		dispose: function () {
 
 			this.dispatchEvent({ type: 'dispose' });
 		}
@@ -19457,7 +19648,10 @@ var index = createCommonjsModule(function (module) {
 
 					maxBones = Math.min(object.skeleton.bones.length, maxBones);
 
-					if (maxBones < object.skeleton.bones.length) {}
+					if (maxBones < object.skeleton.bones.length) {
+
+						console.warn('WebGLRenderer: too many bones - ' + object.skeleton.bones.length + ', this GPU supports just ' + maxBones + ' (try OpenGL instead of ANGLE)');
+					}
 				}
 
 				return maxBones;
@@ -19502,7 +19696,10 @@ var index = createCommonjsModule(function (module) {
 
 				precision = capabilities.getMaxPrecision(material.precision);
 
-				if (precision !== material.precision) {}
+				if (precision !== material.precision) {
+
+					console.warn('THREE.WebGLProgram.getParameters:', material.precision, 'not supported, using', precision, 'instead.');
+				}
 			}
 
 			var parameters = {
@@ -19656,196 +19853,8 @@ var index = createCommonjsModule(function (module) {
 
 var THREE = interopDefault(index);
 
-var asyncGenerator = function () {
-  function AwaitValue(value) {
-    this.value = value;
-  }
-
-  function AsyncGenerator(gen) {
-    var front, back;
-
-    function send(key, arg) {
-      return new Promise(function (resolve, reject) {
-        var request = {
-          key: key,
-          arg: arg,
-          resolve: resolve,
-          reject: reject,
-          next: null
-        };
-
-        if (back) {
-          back = back.next = request;
-        } else {
-          front = back = request;
-          resume(key, arg);
-        }
-      });
-    }
-
-    function resume(key, arg) {
-      try {
-        var result = gen[key](arg);
-        var value = result.value;
-
-        if (value instanceof AwaitValue) {
-          Promise.resolve(value.value).then(function (arg) {
-            resume("next", arg);
-          }, function (arg) {
-            resume("throw", arg);
-          });
-        } else {
-          settle(result.done ? "return" : "normal", result.value);
-        }
-      } catch (err) {
-        settle("throw", err);
-      }
-    }
-
-    function settle(type, value) {
-      switch (type) {
-        case "return":
-          front.resolve({
-            value: value,
-            done: true
-          });
-          break;
-
-        case "throw":
-          front.reject(value);
-          break;
-
-        default:
-          front.resolve({
-            value: value,
-            done: false
-          });
-          break;
-      }
-
-      front = front.next;
-
-      if (front) {
-        resume(front.key, front.arg);
-      } else {
-        back = null;
-      }
-    }
-
-    this._invoke = send;
-
-    if (typeof gen.return !== "function") {
-      this.return = undefined;
-    }
-  }
-
-  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-      return this;
-    };
-  }
-
-  AsyncGenerator.prototype.next = function (arg) {
-    return this._invoke("next", arg);
-  };
-
-  AsyncGenerator.prototype.throw = function (arg) {
-    return this._invoke("throw", arg);
-  };
-
-  AsyncGenerator.prototype.return = function (arg) {
-    return this._invoke("return", arg);
-  };
-
-  return {
-    wrap: function (fn) {
-      return function () {
-        return new AsyncGenerator(fn.apply(this, arguments));
-      };
-    },
-    await: function (value) {
-      return new AwaitValue(value);
-    }
-  };
-}();
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-var get = function get(object, property, receiver) {
-  if (object === null) object = Function.prototype;
-  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent === null) {
-      return undefined;
-    } else {
-      return get(parent, property, receiver);
-    }
-  } else if ("value" in desc) {
-    return desc.value;
-  } else {
-    var getter = desc.get;
-
-    if (getter === undefined) {
-      return undefined;
-    }
-
-    return getter.call(receiver);
-  }
-};
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-var Renderer = function () {
-  function Renderer(options) {
-    classCallCheck(this, Renderer);
-
+class Renderer {
+  constructor(options) {
     Object.assign(this, options);
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setClearColor(0x000000, 0);
@@ -19854,59 +19863,44 @@ var Renderer = function () {
     this.el = this.renderer.domElement;
   }
 
-  createClass(Renderer, [{
-    key: 'setTexture',
-    value: function setTexture(texture) {
-      this.texture = texture;
-      this.mesh = this.createMesh();
-    }
-  }, {
-    key: 'setSize',
-    value: function setSize(_ref) {
-      var height = _ref.height,
-          width = _ref.width;
+  setTexture(texture) {
+    this.texture = texture;
+    this.mesh = this.createMesh();
+  }
 
-      this.height = height;
-      this.width = width;
-      this.renderer.setSize(width, height);
-    }
-  }, {
-    key: 'createMesh',
-    value: function createMesh() {
-      this.material = new THREE.MeshBasicMaterial({ map: this.texture });
-      this.geometry = new THREE.SphereGeometry(1, 50, 50);
-      this.geometry.scale(-1, 1, 1);
-      var mesh = new THREE.Mesh(this.geometry, this.material);
-      return mesh;
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.geometry.dispose();
-      this.material.dispose();
-      this.renderer.dispose();
-    }
-  }, {
-    key: 'render',
-    value: function render(scene, camera, needsUpdate) {
-      if (!needsUpdate) return;
-      this.renderer.render(scene, camera);
-    }
-  }]);
-  return Renderer;
-}();
+  setSize({ height, width }) {
+    this.height = height;
+    this.width = width;
+    this.renderer.setSize(width, height);
+  }
 
-var easeOutBack = function easeOutBack(k) {
-  var s = 1.70158;
+  createMesh() {
+    this.material = new THREE.MeshBasicMaterial({ map: this.texture });
+    this.geometry = new THREE.SphereGeometry(1, 50, 50);
+    this.geometry.scale(-1, 1, 1);
+    let mesh = new THREE.Mesh(this.geometry, this.material);
+    return mesh;
+  }
+
+  destroy() {
+    this.geometry.dispose();
+    this.material.dispose();
+    this.renderer.dispose();
+  }
+
+  render(scene, camera, needsUpdate) {
+    if (!needsUpdate) return;
+    this.renderer.render(scene, camera);
+  }
+}
+
+let easeOutBack = k => {
+  let s = 1.70158;
   return --k * k * ((s + 1) * k + s) + 1;
 };
 
-var Controls = function () {
-  function Controls(options) {
-    var _this = this;
-
-    classCallCheck(this, Controls);
-
+class Controls {
+  constructor(options) {
     Object.assign(this, options);
     this.el = this.renderer.el;
     this.theta = this.initialYaw * Math.PI / 180;
@@ -19924,236 +19918,202 @@ var Controls = function () {
     this.onGrabDown = this.onGrabDown.bind(this);
     this.onGrabUp = this.onGrabUp.bind(this);
     this.onGyroActivity = this.onGyroActivity.bind(this);
-    this.onTouchStart = function (e) {
-      return _this.onGrabDown({
-        clientX: e.touches[0].pageX,
-        clientY: e.touches[0].pageY,
-        isTouch: true
-      });
-    };
-    this.onTouchMove = function (e) {
-      return _this.onGrabMove({
-        clientX: e.touches[0].pageX,
-        clientY: e.touches[0].pageY,
-        isTouch: true
-      });
-    };
-    this.onTouchEnd = function (_) {
-      return _this.onGrabUp();
-    };
+    this.onTouchStart = e => this.onGrabDown({
+      clientX: e.touches[0].pageX,
+      clientY: e.touches[0].pageY,
+      isTouch: true
+    });
+    this.onTouchMove = e => this.onGrabMove({
+      clientX: e.touches[0].pageX,
+      clientY: e.touches[0].pageY,
+      isTouch: true
+    });
+    this.onTouchEnd = _ => this.onGrabUp();
     this.onDeviceMotion = this.onDeviceMotion.bind(this);
     this.onMessage = this.onMessage.bind(this);
     this.bindEvents();
   }
 
-  createClass(Controls, [{
-    key: 'bindEvents',
-    value: function bindEvents() {
-      this.el.addEventListener('mouseleave', this.onGrabUp);
-      this.el.addEventListener('mousemove', this.onGrabMove);
-      this.el.addEventListener('mousedown', this.onGrabDown);
-      this.el.addEventListener('mouseup', this.onGrabUp);
-      this.el.addEventListener('touchstart', this.onTouchStart);
-      this.el.addEventListener('touchmove', this.onTouchMove);
-      this.el.addEventListener('touchend', this.onTouchEnd);
-      if (!this.isInIframe()) window.addEventListener('devicemotion', this.onDeviceMotion);
-      window.addEventListener('message', this.onMessage);
-    }
-  }, {
-    key: 'centralize',
-    value: function centralize() {
-      var _this2 = this;
+  bindEvents() {
+    this.el.addEventListener('mouseleave', this.onGrabUp);
+    this.el.addEventListener('mousemove', this.onGrabMove);
+    this.el.addEventListener('mousedown', this.onGrabDown);
+    this.el.addEventListener('mouseup', this.onGrabUp);
+    this.el.addEventListener('touchstart', this.onTouchStart);
+    this.el.addEventListener('touchmove', this.onTouchMove);
+    this.el.addEventListener('touchend', this.onTouchEnd);
+    if (!this.isInIframe()) window.addEventListener('devicemotion', this.onDeviceMotion);
+    window.addEventListener('message', this.onMessage);
+  }
 
-      var endTheta = this.initialYaw * Math.PI / 180;
+  centralize() {
+    let endTheta = this.initialYaw * Math.PI / 180;
 
-      var duration = 750;
-      var startTheta = this.theta;
-      var startPhi = this.phi;
-      var start = Date.now();
+    let duration = 750;
+    let startTheta = this.theta;
+    let startPhi = this.phi;
+    let start = Date.now();
 
-      var animate = function animate() {
-        var progress = Date.now() - start;
-        var elapsed = progress / duration;
-        elapsed = elapsed > 1 ? 1 : elapsed;
-        if (progress >= duration) {
-          return cancelAnimationFrame(id);
-        }
-        _this2.theta = startTheta + (endTheta - startTheta) * easeOutBack(elapsed);
-        _this2.phi = startPhi + (0 - startPhi) * easeOutBack(elapsed);
-        return requestAnimationFrame(animate);
-      };
-      var id = animate();
-    }
-  }, {
-    key: 'isInIframe',
-    value: function isInIframe() {
-      try {
-        return window.self !== window.top;
-      } catch (e) {
-        return true;
+    let animate = () => {
+      let progress = Date.now() - start;
+      let elapsed = progress / duration;
+      elapsed = elapsed > 1 ? 1 : elapsed;
+      if (progress >= duration) {
+        return cancelAnimationFrame(id);
       }
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.el.removeEventListener('mouseleave', this.onGrabUp);
-      this.el.removeEventListener('mousemove', this.onGrabMove);
-      this.el.removeEventListener('mousedown', this.onGrabDown);
-      this.el.removeEventListener('mouseup', this.onGrabUp);
-      this.el.removeEventListener('touchstart', this.onTouchStart);
-      this.el.removeEventListener('touchmove', this.onTouchMove);
-      this.el.removeEventListener('touchend', this.onTouchEnd);
-      window.removeEventListener('devicemotion', this.onDeviceMotion);
-      window.removeEventListener('message', this.onMessage);
-    }
-  }, {
-    key: 'getCurrentStyle',
-    value: function getCurrentStyle() {
-      return 'height: ' + parseInt(this.el.style.height, 10) + 'px; width: ' + parseInt(this.el.style.width, 10) + 'px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0);';
-    }
-  }, {
-    key: 'addDraggingStyle',
-    value: function addDraggingStyle() {
-      this.el.setAttribute('style', this.getCurrentStyle() + ' cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing;');
-    }
-  }, {
-    key: 'addDraggableStyle',
-    value: function addDraggableStyle() {
-      this.el.setAttribute('style', this.getCurrentStyle() + ' cursor: -webkit-grab; cursor: -moz-grab; cursor: grab;');
-    }
-  }, {
-    key: 'onMessage',
-    value: function onMessage(event) {
-      var _event$data = event.data,
-          orientation = _event$data.orientation,
-          portrait = _event$data.portrait,
-          rotationRate = _event$data.rotationRate;
+      this.theta = startTheta + (endTheta - startTheta) * easeOutBack(elapsed);
+      this.phi = startPhi + (0 - startPhi) * easeOutBack(elapsed);
+      return requestAnimationFrame(animate);
+    };
+    let id = animate();
+  }
 
-      if (!rotationRate) return;
-      this.onDeviceMotion({ orientation: orientation, portrait: portrait, rotationRate: rotationRate });
-    }
-  }, {
-    key: 'onDeviceMotion',
-    value: function onDeviceMotion(event) {
-      var portrait = event.portrait !== undefined ? event.portrait : window.matchMedia("(orientation: portrait)").matches;
-      var orientation = void 0;
-      if (event.orientation !== undefined) {
-        orientation = event.orientation;
-      } else if (window.orientation !== undefined) {
-        orientation = window.orientation;
-      } else {
-        orientation = -90;
-      }
-      var alpha = THREE.Math.degToRad(event.rotationRate.alpha);
-      var beta = THREE.Math.degToRad(event.rotationRate.beta);
-      if (Math.abs(alpha) > 0 || Math.abs(beta) > 0) {
-        this.onGyroActivity();
-      }
-      if (portrait) {
-        this.phi = this.verticalPanning ? this.phi + alpha * this.velo : this.phi;
-        this.theta = this.theta - beta * this.velo * -1;
-      } else {
-        if (this.verticalPanning) {
-          this.phi = orientation === -90 ? this.phi + beta * this.velo : this.phi - beta * this.velo;
-        }
-        this.theta = orientation === -90 ? this.theta - alpha * this.velo : this.theta + alpha * this.velo;
-      }
-
-      this.adjustPhi();
-    }
-  }, {
-    key: 'onGrabMove',
-    value: function onGrabMove(event) {
-      if (!this.isUserInteracting) {
-        return;
-      }
-      this.rotateEnd.set(event.clientX, event.isTouch && this.doNotControlGazeWithVerticalTouch ? this.rotateStart.y : event.clientY);
-
-      this.rotateDelta.subVectors(this.rotateEnd, this.rotateStart);
-      this.rotateStart.copy(this.rotateEnd);
-
-      this.phi = this.verticalPanning ? this.phi + 2 * Math.PI * this.rotateDelta.y / this.renderer.height * 0.3 : this.phi;
-      this.theta += 2 * Math.PI * this.rotateDelta.x / this.renderer.width * 0.5;
-      this.adjustPhi();
-    }
-  }, {
-    key: 'adjustPhi',
-    value: function adjustPhi() {
-      // Prevent looking too far up or down.
-      this.phi = THREE.Math.clamp(this.phi, -Math.PI / 1.95, Math.PI / 1.95);
-    }
-  }, {
-    key: 'onGrabDown',
-    value: function onGrabDown(event) {
-      this.addDraggingStyle();
-      this.rotateStart.set(event.clientX, event.clientY);
-      this.isUserInteracting = true;
-      this.momentum = false;
-      this.onDragStart && this.onDragStart();
-    }
-  }, {
-    key: 'inertia',
-    value: function inertia() {
-      if (!this.momentum) return;
-      this.rotateDelta.y *= 0.85;
-      this.rotateDelta.x *= 0.85;
-      this.theta += 0.005 * this.rotateDelta.x;
-      this.phi = this.verticalPanning ? this.phi + 0.005 * this.rotateDelta.y : this.phi;
-      this.adjustPhi();
-    }
-  }, {
-    key: 'onGrabUp',
-    value: function onGrabUp() {
-      this.isUserInteracting && this.onDragStop && this.onDragStop();
-      this.addDraggableStyle();
-      this.isUserInteracting = false;
-      this.momentum = true;
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      if (this.phi === this.previousPhi && this.theta === this.previousTheta) return false;
-      this.previousPhi = this.phi;
-      this.previousTheta = this.theta;
-      this.euler.set(this.phi, this.theta, 0, 'YXZ');
-      this.orientation.setFromEuler(this.euler);
-      this.camera.quaternion.copy(this.orientation);
-      this.inertia();
+  isInIframe() {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
       return true;
     }
-  }]);
-  return Controls;
-}();
+  }
 
-var ThreeSixtyViewer = function () {
-  function ThreeSixtyViewer() {
-    var _this = this;
+  destroy() {
+    this.el.removeEventListener('mouseleave', this.onGrabUp);
+    this.el.removeEventListener('mousemove', this.onGrabMove);
+    this.el.removeEventListener('mousedown', this.onGrabDown);
+    this.el.removeEventListener('mouseup', this.onGrabUp);
+    this.el.removeEventListener('touchstart', this.onTouchStart);
+    this.el.removeEventListener('touchmove', this.onTouchMove);
+    this.el.removeEventListener('touchend', this.onTouchEnd);
+    window.removeEventListener('devicemotion', this.onDeviceMotion);
+    window.removeEventListener('message', this.onMessage);
+  }
 
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    classCallCheck(this, ThreeSixtyViewer);
+  getCurrentStyle() {
+    return `height: ${parseInt(this.el.style.height, 10)}px; width: ${parseInt(this.el.style.width, 10)}px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0);`;
+  }
 
+  addDraggingStyle() {
+    this.el.setAttribute('style', `${this.getCurrentStyle()} cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing;`);
+  }
+
+  addDraggableStyle() {
+    this.el.setAttribute('style', `${this.getCurrentStyle()} cursor: -webkit-grab; cursor: -moz-grab; cursor: grab;`);
+  }
+
+  onMessage(event) {
+    let { orientation, portrait, rotationRate } = event.data;
+    if (!rotationRate) return;
+    this.onDeviceMotion({ orientation, portrait, rotationRate });
+  }
+
+  onDeviceMotion(event) {
+    let portrait = event.portrait !== undefined ? event.portrait : window.matchMedia("(orientation: portrait)").matches;
+    let orientation;
+    if (event.orientation !== undefined) {
+      orientation = event.orientation;
+    } else if (window.orientation !== undefined) {
+      orientation = window.orientation;
+    } else {
+      orientation = -90;
+    }
+    let alpha = THREE.Math.degToRad(event.rotationRate.alpha);
+    let beta = THREE.Math.degToRad(event.rotationRate.beta);
+    if (Math.abs(alpha) > 0 || Math.abs(beta) > 0) {
+      this.onGyroActivity();
+    }
+    if (portrait) {
+      this.phi = this.verticalPanning ? this.phi + alpha * this.velo : this.phi;
+      this.theta = this.theta - beta * this.velo * -1;
+    } else {
+      if (this.verticalPanning) {
+        this.phi = orientation === -90 ? this.phi + beta * this.velo : this.phi - beta * this.velo;
+      }
+      this.theta = orientation === -90 ? this.theta - alpha * this.velo : this.theta + alpha * this.velo;
+    }
+
+    this.adjustPhi();
+  }
+
+  onGrabMove(event) {
+    if (!this.isUserInteracting) {
+      return;
+    }
+    this.rotateEnd.set(event.clientX, event.isTouch && this.doNotControlGazeWithVerticalTouch ? this.rotateStart.y : event.clientY);
+
+    this.rotateDelta.subVectors(this.rotateEnd, this.rotateStart);
+    this.rotateStart.copy(this.rotateEnd);
+
+    this.phi = this.verticalPanning ? this.phi + 2 * Math.PI * this.rotateDelta.y / this.renderer.height * 0.3 : this.phi;
+    this.theta += 2 * Math.PI * this.rotateDelta.x / this.renderer.width * 0.5;
+    this.adjustPhi();
+  }
+
+  adjustPhi() {
+    // Prevent looking too far up or down.
+    this.phi = THREE.Math.clamp(this.phi, -Math.PI / 1.95, Math.PI / 1.95);
+  }
+
+  onGrabDown(event) {
+    this.addDraggingStyle();
+    this.rotateStart.set(event.clientX, event.clientY);
+    this.isUserInteracting = true;
+    this.momentum = false;
+    this.onDragStart && this.onDragStart();
+  }
+
+  inertia() {
+    if (!this.momentum) return;
+    this.rotateDelta.y *= 0.85;
+    this.rotateDelta.x *= 0.85;
+    this.theta += 0.005 * this.rotateDelta.x;
+    this.phi = this.verticalPanning ? this.phi + 0.005 * this.rotateDelta.y : this.phi;
+    this.adjustPhi();
+  }
+
+  onGrabUp() {
+    this.isUserInteracting && this.onDragStop && this.onDragStop();
+    this.addDraggableStyle();
+    this.isUserInteracting = false;
+    this.momentum = true;
+  }
+
+  update() {
+    if (this.phi === this.previousPhi && this.theta === this.previousTheta) return false;
+    this.previousPhi = this.phi;
+    this.previousTheta = this.theta;
+    this.euler.set(this.phi, this.theta, 0, 'YXZ');
+    this.orientation.setFromEuler(this.euler);
+    this.camera.quaternion.copy(this.orientation);
+    this.inertia();
+    return true;
+  }
+}
+
+class ThreeSixtyViewer {
+  constructor(options = {}) {
     Object.assign(this, { height: 360, width: 640, initialYaw: 90, verticalPanning: true }, options);
-    var height = this.height,
-        width = this.width,
-        container = this.container,
-        containerId = this.containerId,
-        initialYaw = this.initialYaw,
-        verticalPanning = this.verticalPanning,
-        onDragStart = this.onDragStart,
-        onDragStop = this.onDragStop;
-
-    this.renderer = new Renderer({ height: height, width: width });
+    let {
+      height,
+      width,
+      container,
+      containerId,
+      initialYaw,
+      verticalPanning,
+      onDragStart,
+      onDragStop
+    } = this;
+    this.renderer = new Renderer({ height, width });
     this.camera = new THREE.PerspectiveCamera(80, this.width / this.height, 0.1, 100);
     this.controls = new Controls({
       camera: this.camera,
       renderer: this.renderer,
-      initialYaw: initialYaw,
-      verticalPanning: verticalPanning,
-      onDragStart: onDragStart,
-      onDragStop: onDragStop,
-      onGyroActivity: function onGyroActivity() {
-        if (_this.gyroActivityCb) {
-          _this.gyroActivityCb();
+      initialYaw,
+      verticalPanning,
+      onDragStart,
+      onDragStop,
+      onGyroActivity: () => {
+        if (this.gyroActivityCb) {
+          this.gyroActivityCb();
         }
       },
       doNotControlGazeWithVerticalTouch: options.doNotControlGazeWithVerticalTouch
@@ -20174,365 +20134,294 @@ var ThreeSixtyViewer = function () {
     this.target = this.container ? this.container : document.querySelector(this.containerId);
   }
 
-  createClass(ThreeSixtyViewer, [{
-    key: 'play',
-    value: function play() {
-      this.element.play && this.element.play();
-    }
-  }, {
-    key: 'pause',
-    value: function pause() {
-      this.element.pause && this.element.pause();
-    }
-  }, {
-    key: 'centralize',
-    value: function centralize() {
-      this.controls.centralize();
-    }
-  }, {
-    key: 'stopVideoLoop',
-    value: function stopVideoLoop() {
+  play() {
+    this.element.play && this.element.play();
+  }
+
+  pause() {
+    this.element.pause && this.element.pause();
+  }
+
+  centralize() {
+    this.controls.centralize();
+  }
+
+  stopVideoLoop() {
+    clearTimeout(this.videoLoopId);
+    this.videoLoopId = null;
+    this.needsUpdate = false;
+  }
+
+  destroy() {
+    this.element.style.display = '';
+    clearTimeout(this.videoLoopId);
+    cancelAnimationFrame(this.animationFrameId);
+    this.element.pause && this.element.pause();
+    this.target.removeChild(this.renderer.el);
+    this.controls.destroy();
+    this.renderer.destroy();
+  }
+
+  setSize({ height, width }) {
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize({ height, width });
+  }
+
+  getElement() {
+    if (this.source && this.source.tagName) return this.source;
+    let video = document.createElement('video');
+    video.loop = this.loop || false;
+    video.muted = this.muted || false;
+    video.setAttribute('crossorigin', 'anonymous');
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('src', this.source);
+    video.autoplay = this.autoplay !== undefined ? this.autoplay : true;
+    video.addEventListener('error', this.onError);
+    return video;
+  }
+
+  createTexture() {
+    let texture = new THREE.Texture(this.element);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    texture.generateMipmaps = false;
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  createScene() {
+    let scene = new THREE.Scene();
+    let group = new THREE.Object3D();
+    group.name = 'photo';
+    scene.add(group);
+    return scene;
+  }
+
+  onError(err) {
+    console.error('error loading', this.source, err);
+  }
+
+  startVideoLoop() {
+    let videoFps = 1000 / 25;
+    if (this.videoLoopId) {
       clearTimeout(this.videoLoopId);
       this.videoLoopId = null;
+    }
+    let videoLoop = () => {
+      this.needsUpdate = true;
+      this.videoLoopId = setTimeout(videoLoop, videoFps);
+    };
+
+    videoLoop();
+  }
+
+  onViewDirectionChange(cb) {
+    this.viewDirectionChangeCb = cb;
+  }
+
+  onGyroActivity(cb) {
+    this.gyroActivityCb = cb;
+  }
+
+  render() {
+    this.target.appendChild(this.renderer.el);
+    this.element.style.display = 'none';
+
+    let loop = () => {
+      this.animationFrameId = requestAnimationFrame(loop);
+      let cameraUpdated = this.controls.update();
+      this.renderer.render(this.scene, this.camera, this.needsUpdate || cameraUpdated);
+      if (this.viewDirectionChangeCb) {
+        if (this.viewDirectionChangeLastPhiSent !== this.controls.phi || this.viewDirectionChangeLastThetaSent !== this.controls.theta) {
+          this.viewDirectionChangeCb({ phi: this.controls.phi, theta: this.controls.theta });
+          this.viewDirectionChangeLastThetaSent = this.controls.theta;
+          this.viewDirectionChangeLastPhiSent = this.controls.phi;
+        }
+      }
       this.needsUpdate = false;
+    };
+
+    this.startVideoLoop();
+    loop();
+  }
+}
+
+class Video extends ThreeSixtyViewer {
+  constructor(options) {
+    super(options);
+  }
+
+  createTexture() {
+    let texture = new THREE.VideoTexture(this.element);
+    //TODO: we can pass all this info through the constructor
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    texture.generateMipmaps = false;
+    texture.needsUpdate = true;
+    return texture;
+  }
+}
+
+class Image extends ThreeSixtyViewer {
+  constructor(options) {
+    super(options);
+    console.log('hello from david via kaleidoscopejs');
+  }
+
+  getElement() {
+    if (this.source && this.source.tagName) return this.source;
+    let image = document.createElement('img');
+    image.setAttribute('crossorigin', 'anonymous');
+    image.src = this.source;
+    return image;
+  }
+}
+
+class Canvas extends ThreeSixtyViewer {
+  constructor(options) {
+    super(options);
+    this.context = this.element.getContext('2d');
+  }
+
+  play() {
+    this.video.play && this.video.play();
+  }
+
+  pause() {
+    this.video.pause && this.video.pause();
+  }
+
+  destroy() {
+    this.video.style.display = '';
+    super.destroy();
+  }
+
+  getElement() {
+    this.video = super.getElement();
+    this.video.addEventListener('playing', this.startVideoLoop);
+    this.video.addEventListener('pause', this.stopVideoLoop);
+    this.video.addEventListener('ended', this.stopVideoLoop);
+    let canvas = document.createElement('canvas');
+    canvas.height = this.height;
+    canvas.width = this.width;
+    return canvas;
+  }
+
+  render() {
+    this.target.appendChild(this.renderer.el);
+    this.video.style.display = 'none';
+    let loop = () => {
+      this.animationFrameId = requestAnimationFrame(loop);
+      this.context.clearRect(0, 0, this.width, this.height);
+      this.context.drawImage(this.video, 0, 0, this.width, this.height);
+      let cameraUpdated = this.controls.update();
+      this.renderer.render(this.scene, this.camera, this.needsUpdate || cameraUpdated);
+      this.renderer.mesh.material.map.needsUpdate = true;
+      this.needsUpdate = false;
+    };
+    this.startVideoLoop();
+    loop();
+  }
+}
+
+class Audio extends ThreeSixtyViewer {
+  constructor(options) {
+    super(options);
+    this.driver.addEventListener('playing', this.startVideoLoop);
+    this.driver.addEventListener('pause', this.stopVideoLoop);
+    this.driver.addEventListener('ended', this.stopVideoLoop);
+    this.driver.addEventListener('stalled', this.stopVideoLoop);
+    this.driverInitialized = false;
+  }
+
+  play() {
+    this.driver.play();
+  }
+
+  pause() {
+    this.driver.pause();
+  }
+
+  getElement() {
+    if (this.source && this.source.tagName) {
+      this.driver = this.source;
+    } else {
+      this.driver = document.createElement('audio');
+      this.driver.src = this.source;
+      this.driver.loop = this.loop || false;
+      this.driver.muted = this.muted || false;
+      this.driver.setAttribute('crossorigin', 'anonymous');
+      this.driver.autoplay = this.autoplay || true;
     }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.element.style.display = '';
+    this.source = this.driver.src;
+    this.driver.src = '';
+    this.driver.load();
+
+    let video = document.createElement('video');
+    video.setAttribute('crossorigin', 'anonymous');
+    video.src = this.source;
+    video.load();
+    video.addEventListener('error', this.onError);
+    return video;
+  }
+
+  createTexture() {
+    let texture = new THREE.VideoTexture(this.element);
+    //TODO: we can pass all this info through the constructor
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    texture.generateMipmaps = false;
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  startVideoLoop() {
+    let videoFps = 1000 / 25;
+    if (this.videoLoopId) {
       clearTimeout(this.videoLoopId);
-      cancelAnimationFrame(this.animationFrameId);
-      this.element.pause && this.element.pause();
-      this.target.removeChild(this.renderer.el);
-      this.controls.destroy();
-      this.renderer.destroy();
+      this.videoLoopId = null;
     }
-  }, {
-    key: 'setSize',
-    value: function setSize(_ref) {
-      var height = _ref.height,
-          width = _ref.width;
+    let videoLoop = () => {
+      this.element.currentTime = this.driver.currentTime;
+      this.needsUpdate = true;
+      this.videoLoopId = setTimeout(videoLoop, videoFps);
+    };
 
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize({ height: height, width: width });
-    }
-  }, {
-    key: 'getElement',
-    value: function getElement() {
-      if (this.source && this.source.tagName) return this.source;
-      var video = document.createElement('video');
-      video.loop = this.loop || false;
-      video.muted = this.muted || false;
-      video.setAttribute('crossorigin', 'anonymous');
-      video.setAttribute('webkit-playsinline', 'true');
-      video.setAttribute('playsinline', 'true');
-      video.setAttribute('src', this.source);
-      video.autoplay = this.autoplay !== undefined ? this.autoplay : true;
-      video.addEventListener('error', this.onError);
-      return video;
-    }
-  }, {
-    key: 'createTexture',
-    value: function createTexture() {
-      var texture = new THREE.Texture(this.element);
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBFormat;
-      texture.generateMipmaps = false;
-      texture.needsUpdate = true;
-      return texture;
-    }
-  }, {
-    key: 'createScene',
-    value: function createScene() {
-      var scene = new THREE.Scene();
-      var group = new THREE.Object3D();
-      group.name = 'photo';
-      scene.add(group);
-      return scene;
-    }
-  }, {
-    key: 'onError',
-    value: function onError(err) {}
-  }, {
-    key: 'startVideoLoop',
-    value: function startVideoLoop() {
-      var _this2 = this;
-
-      var videoFps = 1000 / 25;
-      if (this.videoLoopId) {
-        clearTimeout(this.videoLoopId);
-        this.videoLoopId = null;
-      }
-      var videoLoop = function videoLoop() {
-        _this2.needsUpdate = true;
-        _this2.videoLoopId = setTimeout(videoLoop, videoFps);
-      };
-
-      videoLoop();
-    }
-  }, {
-    key: 'onViewDirectionChange',
-    value: function onViewDirectionChange(cb) {
-      this.viewDirectionChangeCb = cb;
-    }
-  }, {
-    key: 'onGyroActivity',
-    value: function onGyroActivity(cb) {
-      this.gyroActivityCb = cb;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      this.target.appendChild(this.renderer.el);
-      this.element.style.display = 'none';
-
-      var loop = function loop() {
-        _this3.animationFrameId = requestAnimationFrame(loop);
-        var cameraUpdated = _this3.controls.update();
-        _this3.renderer.render(_this3.scene, _this3.camera, _this3.needsUpdate || cameraUpdated);
-        if (_this3.viewDirectionChangeCb) {
-          if (_this3.viewDirectionChangeLastPhiSent !== _this3.controls.phi || _this3.viewDirectionChangeLastThetaSent !== _this3.controls.theta) {
-            _this3.viewDirectionChangeCb({ phi: _this3.controls.phi, theta: _this3.controls.theta });
-            _this3.viewDirectionChangeLastThetaSent = _this3.controls.theta;
-            _this3.viewDirectionChangeLastPhiSent = _this3.controls.phi;
-          }
-        }
-        _this3.needsUpdate = false;
-      };
-
-      this.startVideoLoop();
-      loop();
-    }
-  }]);
-  return ThreeSixtyViewer;
-}();
-
-var Video = function (_ThreeSixtyViewer) {
-  inherits(Video, _ThreeSixtyViewer);
-
-  function Video(options) {
-    classCallCheck(this, Video);
-    return possibleConstructorReturn(this, (Video.__proto__ || Object.getPrototypeOf(Video)).call(this, options));
+    videoLoop();
   }
 
-  createClass(Video, [{
-    key: 'createTexture',
-    value: function createTexture() {
-      var texture = new THREE.VideoTexture(this.element);
-      //TODO: we can pass all this info through the constructor
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBFormat;
-      texture.generateMipmaps = false;
-      texture.needsUpdate = true;
-      return texture;
-    }
-  }]);
-  return Video;
-}(ThreeSixtyViewer);
-
-var Image = function (_ThreeSixtyViewer) {
-  inherits(Image, _ThreeSixtyViewer);
-
-  function Image(options) {
-    classCallCheck(this, Image);
-    return possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this, options));
+  destroy() {
+    this.driver.style.display = '';
+    super.destroy();
   }
 
-  createClass(Image, [{
-    key: 'getElement',
-    value: function getElement() {
-      if (this.source && this.source.tagName) return this.source;
-      var image = document.createElement('img');
-      image.setAttribute('crossorigin', 'anonymous');
-      image.src = this.source;
-      return image;
-    }
-  }]);
-  return Image;
-}(ThreeSixtyViewer);
-
-var Canvas = function (_ThreeSixtyViewer) {
-  inherits(Canvas, _ThreeSixtyViewer);
-
-  function Canvas(options) {
-    classCallCheck(this, Canvas);
-
-    var _this = possibleConstructorReturn(this, (Canvas.__proto__ || Object.getPrototypeOf(Canvas)).call(this, options));
-
-    _this.context = _this.element.getContext('2d');
-    return _this;
-  }
-
-  createClass(Canvas, [{
-    key: 'play',
-    value: function play() {
-      this.video.play && this.video.play();
-    }
-  }, {
-    key: 'pause',
-    value: function pause() {
-      this.video.pause && this.video.pause();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.video.style.display = '';
-      get(Canvas.prototype.__proto__ || Object.getPrototypeOf(Canvas.prototype), 'destroy', this).call(this);
-    }
-  }, {
-    key: 'getElement',
-    value: function getElement() {
-      this.video = get(Canvas.prototype.__proto__ || Object.getPrototypeOf(Canvas.prototype), 'getElement', this).call(this);
-      this.video.addEventListener('playing', this.startVideoLoop);
-      this.video.addEventListener('pause', this.stopVideoLoop);
-      this.video.addEventListener('ended', this.stopVideoLoop);
-      var canvas = document.createElement('canvas');
-      canvas.height = this.height;
-      canvas.width = this.width;
-      return canvas;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      this.target.appendChild(this.renderer.el);
-      this.video.style.display = 'none';
-      var loop = function loop() {
-        _this2.animationFrameId = requestAnimationFrame(loop);
-        _this2.context.clearRect(0, 0, _this2.width, _this2.height);
-        _this2.context.drawImage(_this2.video, 0, 0, _this2.width, _this2.height);
-        var cameraUpdated = _this2.controls.update();
-        _this2.renderer.render(_this2.scene, _this2.camera, _this2.needsUpdate || cameraUpdated);
-        _this2.renderer.mesh.material.map.needsUpdate = true;
-        _this2.needsUpdate = false;
-      };
-      this.startVideoLoop();
-      loop();
-    }
-  }]);
-  return Canvas;
-}(ThreeSixtyViewer);
-
-var Audio = function (_ThreeSixtyViewer) {
-  inherits(Audio, _ThreeSixtyViewer);
-
-  function Audio(options) {
-    classCallCheck(this, Audio);
-
-    var _this = possibleConstructorReturn(this, (Audio.__proto__ || Object.getPrototypeOf(Audio)).call(this, options));
-
-    _this.driver.addEventListener('playing', _this.startVideoLoop);
-    _this.driver.addEventListener('pause', _this.stopVideoLoop);
-    _this.driver.addEventListener('ended', _this.stopVideoLoop);
-    _this.driver.addEventListener('stalled', _this.stopVideoLoop);
-    _this.driverInitialized = false;
-    return _this;
-  }
-
-  createClass(Audio, [{
-    key: 'play',
-    value: function play() {
-      this.driver.play();
-    }
-  }, {
-    key: 'pause',
-    value: function pause() {
-      this.driver.pause();
-    }
-  }, {
-    key: 'getElement',
-    value: function getElement() {
-      if (this.source && this.source.tagName) {
-        this.driver = this.source;
-      } else {
-        this.driver = document.createElement('audio');
+  render() {
+    this.target.appendChild(this.renderer.el);
+    this.element.style.display = 'none';
+    this.driver.style.display = 'none';
+    let loop = () => {
+      let cameraUpdated = this.controls.update();
+      this.renderer.render(this.scene, this.camera, this.needsUpdate || cameraUpdated);
+      this.needsUpdate = false;
+      this.animationFrameId = requestAnimationFrame(loop);
+      let shouldInitializeDriver = this.element.readyState >= this.element.HAVE_FUTURE_DATA && !this.driverInitialized;
+      if (shouldInitializeDriver) {
         this.driver.src = this.source;
-        this.driver.loop = this.loop || false;
-        this.driver.muted = this.muted || false;
-        this.driver.setAttribute('crossorigin', 'anonymous');
-        this.driver.autoplay = this.autoplay || true;
+        this.driver.load();
+        this.onDriverReady && this.onDriverReady();
+        this.driverInitialized = true;
       }
-      this.source = this.driver.src;
-      this.driver.src = '';
-      this.driver.load();
+    };
+    loop();
+  }
+}
 
-      var video = document.createElement('video');
-      video.setAttribute('crossorigin', 'anonymous');
-      video.src = this.source;
-      video.load();
-      video.addEventListener('error', this.onError);
-      return video;
-    }
-  }, {
-    key: 'createTexture',
-    value: function createTexture() {
-      var texture = new THREE.VideoTexture(this.element);
-      //TODO: we can pass all this info through the constructor
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBFormat;
-      texture.generateMipmaps = false;
-      texture.needsUpdate = true;
-      return texture;
-    }
-  }, {
-    key: 'startVideoLoop',
-    value: function startVideoLoop() {
-      var _this2 = this;
-
-      var videoFps = 1000 / 25;
-      if (this.videoLoopId) {
-        clearTimeout(this.videoLoopId);
-        this.videoLoopId = null;
-      }
-      var videoLoop = function videoLoop() {
-        _this2.element.currentTime = _this2.driver.currentTime;
-        _this2.needsUpdate = true;
-        _this2.videoLoopId = setTimeout(videoLoop, videoFps);
-      };
-
-      videoLoop();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.driver.style.display = '';
-      get(Audio.prototype.__proto__ || Object.getPrototypeOf(Audio.prototype), 'destroy', this).call(this);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      this.target.appendChild(this.renderer.el);
-      this.element.style.display = 'none';
-      this.driver.style.display = 'none';
-      var loop = function loop() {
-        var cameraUpdated = _this3.controls.update();
-        _this3.renderer.render(_this3.scene, _this3.camera, _this3.needsUpdate || cameraUpdated);
-        _this3.needsUpdate = false;
-        _this3.animationFrameId = requestAnimationFrame(loop);
-        var shouldInitializeDriver = _this3.element.readyState >= _this3.element.HAVE_FUTURE_DATA && !_this3.driverInitialized;
-        if (shouldInitializeDriver) {
-          _this3.driver.src = _this3.source;
-          _this3.driver.load();
-          _this3.onDriverReady && _this3.onDriverReady();
-          _this3.driverInitialized = true;
-        }
-      };
-      loop();
-    }
-  }]);
-  return Audio;
-}(ThreeSixtyViewer);
-
-var video = function video(options) {
+let video = options => {
   if (utils.shouldUseAudioDriver()) {
     return new Audio(options);
   }
